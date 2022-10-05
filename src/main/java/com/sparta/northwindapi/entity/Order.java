@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,10 @@ public class Order {
 
     @Column(name = "ShippedDate")
     private Instant shippedDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ShipVia")
+    private Shipper shipVia;
 
     @Column(name = "Freight", precision = 10, scale = 4)
     private BigDecimal freight;
@@ -96,6 +100,14 @@ public class Order {
 
     public void setShippedDate(Instant shippedDate) {
         this.shippedDate = shippedDate;
+    }
+
+    public Shipper getShipVia() {
+        return shipVia;
+    }
+
+    public void setShipVia(Shipper shipVia) {
+        this.shipVia = shipVia;
     }
 
     public BigDecimal getFreight() {

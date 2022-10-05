@@ -1,16 +1,25 @@
 package com.sparta.northwindapi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Territories")
+@Table(name = "territories")
 public class Territory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TerritoryID", nullable = false, length = 20)
     private String id;
+
+    @Column(name = "TerritoryDescription", nullable = false, length = 50)
+    private String territoryDescription;
+
+    @ManyToMany
+    @JoinTable(name = "employeeterritories",
+            joinColumns = @JoinColumn(name = "TerritoryID"),
+            inverseJoinColumns = @JoinColumn(name = "EmployeeID"))
+    private Set<Employee> employees = new LinkedHashSet<>();
 
     public String getId() {
         return id;
@@ -20,5 +29,20 @@ public class Territory {
         this.id = id;
     }
 
-    //TODO [JPA Buddy] generate columns from DB
+    public String getTerritoryDescription() {
+        return territoryDescription;
+    }
+
+    public void setTerritoryDescription(String territoryDescription) {
+        this.territoryDescription = territoryDescription;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
 }

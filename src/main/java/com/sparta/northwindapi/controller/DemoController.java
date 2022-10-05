@@ -4,11 +4,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DemoController {
+public class BasicController {
 
     @GetMapping("/")
     public String basic() {
-        return String.format("""
+        return """
                 <!DOCTYPE html>
                 <html>
                     <head>
@@ -25,6 +25,7 @@ public class DemoController {
                         </h1>
                     </body>
                 </html>
-                """);
+                """;
     }
+
 }

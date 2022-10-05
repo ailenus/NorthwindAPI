@@ -8,7 +8,7 @@ public class DemoController {
 
     @GetMapping("/")
     public String basic() {
-        return String.format("""
+        return """
                 <!DOCTYPE html>
                 <html>
                     <head>
@@ -25,6 +25,7 @@ public class DemoController {
                         </h1>
                     </body>
                 </html>
-                """);
+                """;
     }
+
 }

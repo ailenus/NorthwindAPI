@@ -58,7 +58,7 @@ public class ShipperDAO implements DAO<ShipperDTO> {
     }
 
     @Override
-    public boolean insertById(int id) {
+    public boolean deleteById(int id) {
         return false;
     }
 
@@ -82,7 +82,6 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public boolean deleteAll() {
-
         return false;
     }
 }

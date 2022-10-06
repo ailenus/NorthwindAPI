@@ -1,7 +1,9 @@
 package com.sparta.northwindapi.dto;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.sparta.northwindapi.entity.Shipper} entity
@@ -10,8 +12,17 @@ public class ShipperDto implements Serializable {
     private Integer id;
     private String companyName;
     private String phone;
+    private Set<OrderDto> orders = new LinkedHashSet<>();
 
     public ShipperDto() {
+    }
+
+    public ShipperDto(Integer id, String companyName, String phone,
+                      Set<OrderDto> orders) {
+        this.id = id;
+        this.companyName = companyName;
+        this.phone = phone;
+        this.orders = orders;
     }
 
     public ShipperDto(Integer id, String companyName, String phone) {
@@ -44,6 +55,14 @@ public class ShipperDto implements Serializable {
         this.phone = phone;
     }
 
+    public Set<OrderDto> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderDto> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,12 +70,13 @@ public class ShipperDto implements Serializable {
         ShipperDto entity = (ShipperDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.companyName, entity.companyName) &&
-                Objects.equals(this.phone, entity.phone);
+                Objects.equals(this.phone, entity.phone) &&
+                Objects.equals(this.orders, entity.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, companyName, phone);
+        return Objects.hash(id, companyName, phone, orders);
     }
 
     @Override
@@ -64,6 +84,7 @@ public class ShipperDto implements Serializable {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "companyName = " + companyName + ", " +
-                "phone = " + phone + ")";
+                "phone = " + phone + ", " +
+                "orders = " + orders + ")";
     }
 }

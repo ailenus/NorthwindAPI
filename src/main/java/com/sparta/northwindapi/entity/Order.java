@@ -23,14 +23,14 @@ public class Order {
     @JoinColumn(name = "EmployeeID")
     private Employee employeeID;
 
-//    @Column(name = "OrderDate")
-//    private Instant orderDate;
-//
-//    @Column(name = "RequiredDate")
-//    private Instant requiredDate;
-//
-//    @Column(name = "ShippedDate")
-//    private Instant shippedDate;
+    @Column(name = "OrderDate")
+    private Instant orderDate;
+
+    @Column(name = "RequiredDate")
+    private Instant requiredDate;
+
+    @Column(name = "ShippedDate")
+    private Instant shippedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ShipVia")
@@ -81,29 +81,29 @@ public class Order {
         this.employeeID = employeeID;
     }
 
-//    public Instant getOrderDate() {
-//        return orderDate;
-//    }
-//
-//    public void setOrderDate(Instant orderDate) {
-//        this.orderDate = orderDate;
-//    }
-//
-//    public Instant getRequiredDate() {
-//        return requiredDate;
-//    }
-//
-//    public void setRequiredDate(Instant requiredDate) {
-//        this.requiredDate = requiredDate;
-//    }
-//
-//    public Instant getShippedDate() {
-//        return shippedDate;
-//    }
-//
-//    public void setShippedDate(Instant shippedDate) {
-//        this.shippedDate = shippedDate;
-//    }
+    public Instant getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Instant orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Instant getRequiredDate() {
+        return requiredDate;
+    }
+
+    public void setRequiredDate(Instant requiredDate) {
+        this.requiredDate = requiredDate;
+    }
+
+    public Instant getShippedDate() {
+        return shippedDate;
+    }
+
+    public void setShippedDate(Instant shippedDate) {
+        this.shippedDate = shippedDate;
+    }
 
     public Shipper getShipVia() {
         return shipVia;

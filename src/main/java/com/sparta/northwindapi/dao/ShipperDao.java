@@ -15,6 +15,17 @@ public class ShipperDao {
         this.REPOSITORY = repository;
     }
 
+    public ShipperDto read(ShipperDto dto) {
+        Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
+        if (optional.isEmpty()) {
+            return new ShipperDto(-1, null, null);
+        } else {
+            Shipper shipper = optional.get();
+            return new ShipperDto(shipper.getId(), shipper.getCompanyName(),
+                    shipper.getPhone());
+        }
+    }
+
     public ShipperDto update(ShipperDto dto) {
         Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
         if (optional.isEmpty()) {

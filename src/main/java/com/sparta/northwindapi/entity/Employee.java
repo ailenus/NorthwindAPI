@@ -28,11 +28,11 @@ public class Employee {
     @Column(name = "TitleOfCourtesy", length = 25)
     private String titleOfCourtesy;
 
-//    @Column(name = "BirthDate")
-//    private Instant birthDate;
-//
-//    @Column(name = "HireDate")
-//    private Instant hireDate;
+    @Column(name = "BirthDate")
+    private Instant birthDate;
+
+    @Column(name = "HireDate")
+    private Instant hireDate;
 
     @Column(name = "Address", length = 60)
     private String address;
@@ -124,21 +124,21 @@ public class Employee {
         this.titleOfCourtesy = titleOfCourtesy;
     }
 
-//    public Instant getBirthDate() {
-//        return birthDate;
-//    }
-//
-//    public void setBirthDate(Instant birthDate) {
-//        this.birthDate = birthDate;
-//    }
-//
-//    public Instant getHireDate() {
-//        return hireDate;
-//    }
-//
-//    public void setHireDate(Instant hireDate) {
-//        this.hireDate = hireDate;
-//    }
+    public Instant getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Instant birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Instant getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Instant hireDate) {
+        this.hireDate = hireDate;
+    }
 
     public String getAddress() {
         return address;

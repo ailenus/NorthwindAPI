@@ -19,7 +19,7 @@ public interface DAO<T extends DTO> {
      * @return the {@code id} of the inserted item, if added successfully<br>
      * {@code -1}, if not
      */
-    public int insert(T item);
+    int insert(T item);
 
     /**
      * Inserts a new item into the database with a specified {@code id}.
@@ -28,7 +28,7 @@ public interface DAO<T extends DTO> {
      * @return {@code true} if inserted<br>
      * {@code false} if not
      */
-    public boolean insertById(T item, int id);
+    boolean insertById(T item, int id);
 
     /**
      * Fetch an item from the database with a specified {@code id}.
@@ -66,7 +66,7 @@ public interface DAO<T extends DTO> {
      * @return the {@code id} of the deleted item, if deleted successfully<br>
      * {@code -1}, if not
      */
-    public int delete(T item);
+    int delete(T item);
 
     /**
      * Deletes an item in the database at a specified {@code id}.
@@ -74,7 +74,7 @@ public interface DAO<T extends DTO> {
      * @return {@code true} if deleted<br>
      * {@code false} if not
      */
-    public boolean insertById(int id);
+    boolean insertById(int id);
 
     /**
      * Deletes all items in the database.

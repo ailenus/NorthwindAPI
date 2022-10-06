@@ -53,6 +53,16 @@ public class ShipperDAO implements DAO<ShipperDTO> {
     }
 
     @Override
+    public int delete(ShipperDTO item) {
+        return 0;
+    }
+
+    @Override
+    public boolean insertById(int id) {
+        return false;
+    }
+
+    @Override
     public Optional<ShipperDTO> findById(int id) {
         Optional<Shipper> optional = REPOSITORY.findById(id);
         if (optional.isPresent()) {
@@ -71,12 +81,8 @@ public class ShipperDAO implements DAO<ShipperDTO> {
     }
 
     @Override
-    public void deleteById(int id) {
+    public boolean deleteAll() {
 
-    }
-
-    @Override
-    public void deleteAll() {
-
+        return false;
     }
 }

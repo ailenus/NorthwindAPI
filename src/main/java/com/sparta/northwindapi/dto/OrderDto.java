@@ -1,15 +1,22 @@
 package com.sparta.northwindapi.dto;
 
-import java.io.Serializable;
+import com.sparta.northwindapi.entity.Order;
+
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
- * A DTO for the {@link com.sparta.northwindapi.entity.Order} entity
+ * A DTO for the {@link Order} entity
  */
-public class OrderDto implements Serializable {
+public class OrderDTO extends DTO {
     private Integer id;
-    private ShipperDto shipVia;
+    private CustomerDTO customerID;
+    private EmployeeDTO employeeID;
+    private Instant orderDate;
+    private Instant requiredDate;
+    private Instant shippedDate;
+    private ShipperDTO shipVia;
     private BigDecimal freight;
     private String shipName;
     private String shipAddress;
@@ -18,14 +25,16 @@ public class OrderDto implements Serializable {
     private String shipPostalCode;
     private String shipCountry;
 
-    public OrderDto() {
+    public OrderDTO() {
     }
 
-    public OrderDto(Integer id, ShipperDto shipVia, BigDecimal freight,
-                    String shipName, String shipAddress, String shipCity,
-                    String shipRegion, String shipPostalCode,
-                    String shipCountry) {
+    public OrderDTO(Integer id, CustomerDTO customerID, EmployeeDTO employeeID, Instant orderDate, Instant requiredDate, Instant shippedDate, ShipperDTO shipVia, BigDecimal freight, String shipName, String shipAddress, String shipCity, String shipRegion, String shipPostalCode, String shipCountry) {
         this.id = id;
+        this.customerID = customerID;
+        this.employeeID = employeeID;
+        this.orderDate = orderDate;
+        this.requiredDate = requiredDate;
+        this.shippedDate = shippedDate;
         this.shipVia = shipVia;
         this.freight = freight;
         this.shipName = shipName;
@@ -40,80 +49,139 @@ public class OrderDto implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public OrderDTO setId(Integer id) {
         this.id = id;
+        return this;
     }
 
-    public ShipperDto getShipVia() {
+    public CustomerDTO getCustomerID() {
+        return customerID;
+    }
+
+    public OrderDTO setCustomerID(CustomerDTO customerID) {
+        this.customerID = customerID;
+        return this;
+    }
+
+    public EmployeeDTO getEmployeeID() {
+        return employeeID;
+    }
+
+    public OrderDTO setEmployeeID(EmployeeDTO employeeID) {
+        this.employeeID = employeeID;
+        return this;
+    }
+
+    public Instant getOrderDate() {
+        return orderDate;
+    }
+
+    public OrderDTO setOrderDate(Instant orderDate) {
+        this.orderDate = orderDate;
+        return this;
+    }
+
+    public Instant getRequiredDate() {
+        return requiredDate;
+    }
+
+    public OrderDTO setRequiredDate(Instant requiredDate) {
+        this.requiredDate = requiredDate;
+        return this;
+    }
+
+    public Instant getShippedDate() {
+        return shippedDate;
+    }
+
+    public OrderDTO setShippedDate(Instant shippedDate) {
+        this.shippedDate = shippedDate;
+        return this;
+    }
+
+    public ShipperDTO getShipVia() {
         return shipVia;
     }
 
-    public void setShipVia(ShipperDto shipVia) {
+    public OrderDTO setShipVia(ShipperDTO shipVia) {
         this.shipVia = shipVia;
+        return this;
     }
 
     public BigDecimal getFreight() {
         return freight;
     }
 
-    public void setFreight(BigDecimal freight) {
+    public OrderDTO setFreight(BigDecimal freight) {
         this.freight = freight;
+        return this;
     }
 
     public String getShipName() {
         return shipName;
     }
 
-    public void setShipName(String shipName) {
+    public OrderDTO setShipName(String shipName) {
         this.shipName = shipName;
+        return this;
     }
 
     public String getShipAddress() {
         return shipAddress;
     }
 
-    public void setShipAddress(String shipAddress) {
+    public OrderDTO setShipAddress(String shipAddress) {
         this.shipAddress = shipAddress;
+        return this;
     }
 
     public String getShipCity() {
         return shipCity;
     }
 
-    public void setShipCity(String shipCity) {
+    public OrderDTO setShipCity(String shipCity) {
         this.shipCity = shipCity;
+        return this;
     }
 
     public String getShipRegion() {
         return shipRegion;
     }
 
-    public void setShipRegion(String shipRegion) {
+    public OrderDTO setShipRegion(String shipRegion) {
         this.shipRegion = shipRegion;
+        return this;
     }
 
     public String getShipPostalCode() {
         return shipPostalCode;
     }
 
-    public void setShipPostalCode(String shipPostalCode) {
+    public OrderDTO setShipPostalCode(String shipPostalCode) {
         this.shipPostalCode = shipPostalCode;
+        return this;
     }
 
     public String getShipCountry() {
         return shipCountry;
     }
 
-    public void setShipCountry(String shipCountry) {
+    public OrderDTO setShipCountry(String shipCountry) {
         this.shipCountry = shipCountry;
+        return this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderDto entity = (OrderDto) o;
+        OrderDTO entity = (OrderDTO) o;
         return Objects.equals(this.id, entity.id) &&
+                Objects.equals(this.customerID, entity.customerID) &&
+                Objects.equals(this.employeeID, entity.employeeID) &&
+                Objects.equals(this.orderDate, entity.orderDate) &&
+                Objects.equals(this.requiredDate, entity.requiredDate) &&
+                Objects.equals(this.shippedDate, entity.shippedDate) &&
                 Objects.equals(this.shipVia, entity.shipVia) &&
                 Objects.equals(this.freight, entity.freight) &&
                 Objects.equals(this.shipName, entity.shipName) &&
@@ -126,14 +194,18 @@ public class OrderDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, shipVia, freight, shipName, shipAddress,
-                shipCity, shipRegion, shipPostalCode, shipCountry);
+        return Objects.hash(id, customerID, employeeID, orderDate, requiredDate, shippedDate, shipVia, freight, shipName, shipAddress, shipCity, shipRegion, shipPostalCode, shipCountry);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
+                "customerID = " + customerID + ", " +
+                "employeeID = " + employeeID + ", " +
+                "orderDate = " + orderDate + ", " +
+                "requiredDate = " + requiredDate + ", " +
+                "shippedDate = " + shippedDate + ", " +
                 "shipVia = " + shipVia + ", " +
                 "freight = " + freight + ", " +
                 "shipName = " + shipName + ", " +

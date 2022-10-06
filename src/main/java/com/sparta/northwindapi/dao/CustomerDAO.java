@@ -12,9 +12,25 @@ public class CustomerDAO {
     @Autowired
     private CustomerRepository REPOSITORY;
 
-    public CustomerDAO(CustomerRepository actorRepo) {
-        this.REPOSITORY = actorRepo;
+//    public CustomerDAO(CustomerRepository actorRepo) {
+//        this.REPOSITORY = actorRepo;
+//    }
+
+
+    public CustomerDTO read(CustomerDTO customerDTO) {
+        return new CustomerDTO("-1",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
     }
+
 
     public CustomerDTO update(CustomerDTO customerDTO) {
         Optional<Customer> optional = REPOSITORY.findById(customerDTO.getId());

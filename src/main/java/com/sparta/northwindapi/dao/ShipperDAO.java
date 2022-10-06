@@ -5,31 +5,32 @@ import com.sparta.northwindapi.entity.Shipper;
 import com.sparta.northwindapi.repo.ShipperRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ShipperDAO {
+public class ShipperDAO implements DAO<ShipperDTO> {
     private final ShipperRepository REPOSITORY;
 
     public ShipperDAO(ShipperRepository repository) {
         this.REPOSITORY = repository;
     }
 
-    public ShipperDTO read(ShipperDTO dto) {
-        Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
-        if (optional.isEmpty()) {
-            return new ShipperDTO(-1, null, null);
-        } else {
-            Shipper shipper = optional.get();
-            return new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
-                    shipper.getPhone());
-        }
+    @Override
+    public int insert(ShipperDTO item) {
+        return 0;
     }
 
-    public ShipperDTO update(ShipperDTO dto) {
+    @Override
+    public boolean insertById(ShipperDTO item, int id) {
+        return false;
+    }
+
+    @Override
+    public int update(ShipperDTO dto) {
         Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
         if (optional.isEmpty()) {
-             return new ShipperDTO(-1, null, null);
+             return -1;
         }
         Shipper shipper = optional.get();
         if (dto.getCompanyName() != null) {
@@ -43,7 +44,39 @@ public class ShipperDAO {
         if (result.isPresent()) {
             shipper = result.get();
         }
-        return new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
-                shipper.getPhone());
+        return shipper.getId();
+    }
+
+    @Override
+    public boolean updateById(ShipperDTO item, int id) {
+        return false;
+    }
+
+    @Override
+    public Optional<ShipperDTO> findById(int id) {
+        Optional<Shipper> optional = REPOSITORY.findById(id);
+        if (optional.isPresent()) {
+            Shipper shipper = optional.get();
+            return Optional.of(
+                    new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
+                            shipper.getPhone()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<ShipperDTO> findAll() {
+        return null;
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }

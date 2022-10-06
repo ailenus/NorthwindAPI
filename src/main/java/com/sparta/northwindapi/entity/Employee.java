@@ -1,15 +1,12 @@
 package com.sparta.northwindapi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "employees")
-@JsonIgnoreProperties({"ReportsTo"})
+@Table(name = "Employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,14 +69,11 @@ public class Employee {
     @Column(name = "Salary")
     private Float salary;
 
-    @OneToMany(mappedBy = "reportsTo")
-    private Set<Employee> employees = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "employeeID")
     private Set<Order> orders = new LinkedHashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "employeeterritories",
+    @JoinTable(name = "EmployeeTerritories",
             joinColumns = @JoinColumn(name = "EmployeeID"),
             inverseJoinColumns = @JoinColumn(name = "TerritoryID"))
     private Set<Territory> territories = new LinkedHashSet<>();
@@ -234,14 +228,6 @@ public class Employee {
 
     public void setSalary(Float salary) {
         this.salary = salary;
-    }
-
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
     }
 
     public Set<Order> getOrders() {

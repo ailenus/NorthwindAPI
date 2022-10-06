@@ -13,11 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
     @Autowired
     private CustomerRepository custRepo;
 
-    @GetMapping("/")
+    @GetMapping({"","/"})
     public String basic() {
         return """
                 <!DOCTYPE html>

@@ -1,14 +1,11 @@
 package com.sparta.northwindapi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Table(name = "orders")
-@JsonIgnoreProperties({"CustomerID", "EmployeeID", "ShipVia"})
+@Table(name = "Orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

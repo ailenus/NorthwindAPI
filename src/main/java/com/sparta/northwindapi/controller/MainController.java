@@ -21,9 +21,16 @@ public class MainController {
                         </style>
                     </head>
                     <body>
-                        <h1 class="center">
-                            Welcome to the Northwind API.
-                        </h1>
+                        <h1 class="center">Welcome to the Northwind API.</h1>
+                        <br>
+                        <h2>API list:</h2>
+                        <ul>
+                            <li><a href="customer">Customer API</a></li>
+                            <li><a href="employee">Employee API</a></li>
+                            <li><a href="order">Order API</a></li>
+                            <li><a href="shipper">Shipper API</a></li>
+                            <li><a href="territory">Territory API</a></li>
+                        </ul>
                     </body>
                 </html>
                 """;

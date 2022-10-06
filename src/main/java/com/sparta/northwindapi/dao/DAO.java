@@ -74,7 +74,7 @@ public interface DAO<T extends DTO> {
      * @return {@code true} if deleted<br>
      * {@code false} if not
      */
-    public boolean insertById(int id);
+    public boolean deleteById(int id);
 
     /**
      * Deletes all items in the database.

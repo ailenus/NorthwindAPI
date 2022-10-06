@@ -13,9 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    @Autowired
-    private CustomerRepository custRepo;
-
     @GetMapping({"","/"})
     public String basic() {
         return """
@@ -40,12 +37,9 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public Customer getCustomer(@PathVariable String id) {
-        Customer customer = custRepo.findById(id).get();
-        return customer;
     }
 
     @GetMapping("/all")
     public List<Customer> getAllActors() {
-        return custRepo.findAll();
     }
 }

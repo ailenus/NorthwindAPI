@@ -2,15 +2,14 @@ package com.sparta.northwindapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.northwindapi.dao.ShipperDao;
+import com.sparta.northwindapi.dto.ShipperDto;
 import com.sparta.northwindapi.entity.Shipper;
 import com.sparta.northwindapi.repo.ShipperRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,9 +18,11 @@ import java.util.Optional;
 public class ShipperController {
 
     private final ShipperRepository REPOSITORY;
+    private final ShipperDao DAO;
 
-    public ShipperController(ShipperRepository repository) {
+    public ShipperController(ShipperRepository repository, ShipperDao dao) {
         this.REPOSITORY = repository;
+        this.DAO = dao;
     }
 
     @GetMapping("/{id}")
@@ -92,6 +93,22 @@ public class ShipperController {
                     httpHeaders, HttpStatus.OK);
         }
         return result;
+    }
+
+    @PatchMapping("/{id}/company_name/{newCompanyName}")
+    public ShipperDto updateCompanyName(@PathVariable int id,
+                                        @PathVariable String newCompanyName) {
+        ShipperDto dto = new ShipperDto(id, newCompanyName, null);
+        dto = DAO.update(dto);
+        return dto;
+    }
+
+    @PatchMapping("{id}/phone/{newPhone}")
+    public ShipperDto updatePhone(@PathVariable int id,
+                                  @PathVariable String newPhone) {
+        ShipperDto dto = new ShipperDto(id, null, newPhone);
+        dto = DAO.update(dto);
+        return dto;
     }
 
 }

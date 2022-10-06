@@ -94,6 +94,22 @@ public class EmployeeController {
 
         ResponseEntity<String> result = null;
         Optional<EmployeeDTO> optional = DAO.findById(id);
+        if (optional.isPresent()){
+            EmployeeDTO item = optional.get();
+            item.setFirstName(firstName);
+            DAO.update(item);
+            try {
+                result = new ResponseEntity<>(
+                        objectMapper.writeValueAsString(item), httpHeaders,
+                        HttpStatus.OK);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            result =
+                    new ResponseEntity<>("{\"message\": \"Employee not found\"}",
+                            httpHeaders, HttpStatus.OK);
+        }
         return result;
     }
 

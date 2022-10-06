@@ -81,7 +81,25 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
     }
     @Override
     public int  update(EmployeeDTO item) {
-        return 0;
+        Optional<Employee> optional = REPOSITORY.findById(item.getId());
+        if (optional.isEmpty()) {
+            return -1;
+        }
+        Employee employee = optional.get();
+        if (item.getFirstName() != null){
+            employee.setFirstName(item.getFirstName());
+        }
+        if (item.getLastName() != null){
+            employee.setLastName(item.getLastName());
+        }
+        REPOSITORY.save(employee); // Saves
+
+        // Retrieves again to get updated object
+        Optional<Employee> result =  REPOSITORY.findById(item.getId());
+        if (result.isPresent()){
+            employee = result.get();
+        }
+        return employee.getId();
     }
 
     @Override

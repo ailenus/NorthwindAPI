@@ -1,6 +1,7 @@
 package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Employee;
+import com.sparta.northwindapi.entity.Territory;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;

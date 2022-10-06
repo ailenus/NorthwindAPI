@@ -1,5 +1,7 @@
 package com.sparta.northwindapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -7,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employees")
+@JsonIgnoreProperties({"ReportsTo"})
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

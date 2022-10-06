@@ -111,7 +111,11 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
 
     @Override
     public boolean deleteById(int id) {
-        return false;
+        if (!REPOSITORY.existsById(id)) {
+            return false;
+        }
+        REPOSITORY.deleteById(id);
+        return true;
     }
 
     @Override

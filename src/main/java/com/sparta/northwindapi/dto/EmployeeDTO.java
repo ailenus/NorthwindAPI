@@ -1,5 +1,6 @@
 package com.sparta.northwindapi.dto;
 
+import com.sparta.northwindapi.dao.EmployeeDAO;
 import com.sparta.northwindapi.entity.Employee;
 import com.sparta.northwindapi.entity.Territory;
 
@@ -32,7 +33,28 @@ public class EmployeeDTO extends DTO {
     private Float salary;
     private Set<TerritoryDTO> territories = new LinkedHashSet<>();
 
-    public EmployeeDTO() {
+    public EmployeeDTO(Employee emp) {
+
+        this.id = emp.getId();
+        this.lastName = emp.getLastName();
+        this.firstName = emp.getFirstName();
+        this.title = emp.getTitle();
+        this.titleOfCourtesy = emp.getTitleOfCourtesy();
+        this.birthDate = emp.getBirthDate();
+        this.hireDate = emp.getHireDate();
+        this.address = emp.getAddress();
+        this.city = emp.getCity();
+        this.region = emp.getRegion();
+        this.postalCode = emp.getPostalCode();
+        this.country = emp.getCountry();
+        this.homePhone = emp.getHomePhone();
+        this.extension = emp.getExtension();
+        this.photo = emp.getPhoto();
+        this.notes = emp.getNotes();
+        this.photoPath = emp.getPhotoPath();
+        this.salary = emp.getSalary();
+        this.territories = EmployeeDAO.setTerritoriesThing(emp.getTerritories());
+
     }
 
     public EmployeeDTO(Integer id, String lastName, String firstName, String title, String titleOfCourtesy, Instant birthDate, Instant hireDate, String address, String city, String region, String postalCode, String country, String homePhone, String extension, byte[] photo, String notes, String photoPath, Float salary, Set<TerritoryDTO> territories) {

@@ -11,8 +11,6 @@ import java.util.Optional;
  * @param <T> The DTO type
  */
 public interface DAO<T extends DTO> {
-    // CRUD: create, read, update, delete
-
     /**
      * Inserts a new item to the database.
      * @param item the item to be inserted

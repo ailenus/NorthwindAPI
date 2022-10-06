@@ -11,15 +11,13 @@ import java.util.Optional;
  * @param <T> The DTO type
  */
 public interface DAO<T extends DTO> {
-    // CRUD: create, read, update, delete
-
     /**
      * Inserts a new item to the database.
      * @param item the item to be inserted
      * @return the {@code id} of the inserted item, if added successfully<br>
      * {@code -1}, if not
      */
-    public int insert(T item);
+    int insert(T item);
 
     /**
      * Inserts a new item into the database with a specified {@code id}.
@@ -28,7 +26,20 @@ public interface DAO<T extends DTO> {
      * @return {@code true} if inserted<br>
      * {@code false} if not
      */
-    public boolean insertById(T item, int id);
+    boolean insertById(T item, int id);
+
+    /**
+     * Fetch an item from the database with a specified {@code id}.
+     * @param id the {@code id} of the item
+     * @return the result
+     */
+    Optional<T> findById(int id);
+
+    /**
+     * Fetch all items from the database.
+     * @return a {@code List} of found items
+     */
+    List<T> findAll();
 
     /**
      * Updates an item in a database.
@@ -48,15 +59,25 @@ public interface DAO<T extends DTO> {
     boolean updateById(T item, int id);
 
     /**
-     * Fetch an item from the database with a specified {@code id}.
-     * @param id the {@code id} of the item
-     * @return the result
+     * Deletes an item in the database.
+     * @param item the item to be deleted
+     * @return the {@code id} of the deleted item, if deleted successfully<br>
+     * {@code -1}, if not
      */
-    Optional<T> findById(int id);
+    int delete(T item);
 
+    /**
+     * Deletes an item in the database at a specified {@code id}.
+     * @param id the {@code id} of the item
+     * @return {@code true} if deleted<br>
+     * {@code false} if not
+     */
+    boolean deleteById(int id);
 
-
-    List<T> findAll();
-    void deleteById(int id);
-    void deleteAll();
+    /**
+     * Deletes all items in the database.
+     * @return {@code true} if deleted<br>
+     * {@code false} if not
+     */
+    boolean deleteAll();
 }

@@ -2,6 +2,7 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Customer;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**

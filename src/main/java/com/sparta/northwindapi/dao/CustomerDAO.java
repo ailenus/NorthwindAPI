@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
-public class CustomerDAO {
+public class CustomerDAO implements DAO<CustomerDTO> {
 
     @Autowired
     private CustomerRepository REPOSITORY;

@@ -1,6 +1,6 @@
 package com.sparta.northwindapi.dao;
 
-import com.sparta.northwindapi.dto.ShipperDto;
+import com.sparta.northwindapi.dto.ShipperDTO;
 import com.sparta.northwindapi.entity.Shipper;
 import com.sparta.northwindapi.repo.ShipperRepository;
 import org.springframework.stereotype.Service;
@@ -8,28 +8,28 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ShipperDao {
+public class ShipperDAO {
     private final ShipperRepository REPOSITORY;
 
-    public ShipperDao(ShipperRepository repository) {
+    public ShipperDAO(ShipperRepository repository) {
         this.REPOSITORY = repository;
     }
 
-    public ShipperDto read(ShipperDto dto) {
+    public ShipperDTO read(ShipperDTO dto) {
         Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
         if (optional.isEmpty()) {
-            return new ShipperDto(-1, null, null);
+            return new ShipperDTO(-1, null, null);
         } else {
             Shipper shipper = optional.get();
-            return new ShipperDto(shipper.getId(), shipper.getCompanyName(),
+            return new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
                     shipper.getPhone());
         }
     }
 
-    public ShipperDto update(ShipperDto dto) {
+    public ShipperDTO update(ShipperDTO dto) {
         Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
         if (optional.isEmpty()) {
-             return new ShipperDto(-1, null, null);
+             return new ShipperDTO(-1, null, null);
         }
         Shipper shipper = optional.get();
         if (dto.getCompanyName() != null) {
@@ -43,7 +43,7 @@ public class ShipperDao {
         if (result.isPresent()) {
             shipper = result.get();
         }
-        return new ShipperDto(shipper.getId(), shipper.getCompanyName(),
+        return new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
                 shipper.getPhone());
     }
 }

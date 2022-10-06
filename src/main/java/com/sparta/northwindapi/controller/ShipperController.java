@@ -1,5 +1,7 @@
 package com.sparta.northwindapi.controller;
 
+import com.sparta.northwindapi.dao.ShipperDAO;
+import com.sparta.northwindapi.dto.ShipperDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,9 +42,9 @@ public class ShipperController {
     }
 
     private final ShipperRepository REPOSITORY;
-    private final ShipperDao DAO;
+    private final ShipperDAO DAO;
 
-    public ShipperController(ShipperRepository repository, ShipperDao dao) {
+    public ShipperController(ShipperRepository repository, ShipperDAO dao) {
         this.REPOSITORY = repository;
         this.DAO = dao;
     }
@@ -118,17 +120,17 @@ public class ShipperController {
     }
 
     @PatchMapping("/{id}/company_name/{newCompanyName}")
-    public ShipperDto updateCompanyName(@PathVariable int id,
+    public ShipperDTO updateCompanyName(@PathVariable int id,
                                         @PathVariable String newCompanyName) {
-        ShipperDto dto = new ShipperDto(id, newCompanyName, null);
+        ShipperDTO dto = new ShipperDTO(id, newCompanyName, null);
         dto = DAO.update(dto);
         return dto;
     }
 
     @PatchMapping("{id}/phone/{newPhone}")
-    public ShipperDto updatePhone(@PathVariable int id,
+    public ShipperDTO updatePhone(@PathVariable int id,
                                   @PathVariable String newPhone) {
-        ShipperDto dto = new ShipperDto(id, null, newPhone);
+        ShipperDTO dto = new ShipperDTO(id, null, newPhone);
         dto = DAO.update(dto);
         return dto;
     }

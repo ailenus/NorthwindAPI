@@ -1,7 +1,5 @@
 package com.sparta.northwindapi.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -61,22 +59,12 @@ public class Employee {
     @Column(name = "Notes", nullable = false)
     private String notes;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ReportsTo")
-    private Employee reportsTo;
-
     @Column(name = "PhotoPath")
     private String photoPath;
 
     @Column(name = "Salary")
     private Float salary;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "employeeID")
-    private Set<Order> orders = new LinkedHashSet<>();
-
-    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "EmployeeTerritories",
             joinColumns = @JoinColumn(name = "EmployeeID"),
@@ -211,14 +199,6 @@ public class Employee {
         this.notes = notes;
     }
 
-    public Employee getReportsTo() {
-        return reportsTo;
-    }
-
-    public void setReportsTo(Employee reportsTo) {
-        this.reportsTo = reportsTo;
-    }
-
     public String getPhotoPath() {
         return photoPath;
     }
@@ -233,14 +213,6 @@ public class Employee {
 
     public void setSalary(Float salary) {
         this.salary = salary;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 
     public Set<Territory> getTerritories() {

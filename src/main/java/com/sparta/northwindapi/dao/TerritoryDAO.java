@@ -1,50 +1,57 @@
 package com.sparta.northwindapi.dao;
 
-
-import com.sparta.northwindapi.dto.DTO;
+import com.sparta.northwindapi.dto.TerritoryDTO;
+import com.sparta.northwindapi.repo.TerritoryRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TerritoryDAO implements DAO {
+@Component
+public class TerritoryDAO implements DAO<TerritoryDTO> {
+    TerritoryRepository repository;
+
+    public TerritoryDAO(TerritoryRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public int insert(DTO item) {
+    public int insert(TerritoryDTO item) {
         return 0;
     }
 
     @Override
-    public boolean insertById(DTO item, int id) {
+    public boolean insertById(TerritoryDTO item, int id) {
         return false;
     }
 
     @Override
-    public Optional findById(int id) {
+    public Optional<TerritoryDTO> findById(int id) {
         return Optional.empty();
     }
 
     @Override
-    public List findAll() {
+    public List<TerritoryDTO> findAll() {
         return null;
     }
 
     @Override
-    public int update(DTO item) {
+    public int update(TerritoryDTO item) {
         return 0;
     }
 
     @Override
-    public boolean updateById(DTO item, int id) {
+    public boolean updateById(TerritoryDTO item, int id) {
         return false;
     }
 
     @Override
-    public int delete(DTO item) {
+    public int delete(TerritoryDTO item) {
         return 0;
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean insertById(int id) {
         return false;
     }
 
@@ -52,3 +59,4 @@ public class TerritoryDAO implements DAO {
     public boolean deleteAll() {
         return false;
     }
+}

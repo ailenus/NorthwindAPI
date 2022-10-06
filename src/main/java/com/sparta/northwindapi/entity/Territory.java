@@ -1,8 +1,6 @@
 package com.sparta.northwindapi.entity;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "Territories")
@@ -14,12 +12,6 @@ public class Territory {
 
     @Column(name = "TerritoryDescription", nullable = false, length = 50)
     private String territoryDescription;
-
-    @ManyToMany
-    @JoinTable(name = "EmployeeTerritories",
-            joinColumns = @JoinColumn(name = "TerritoryID"),
-            inverseJoinColumns = @JoinColumn(name = "EmployeeID"))
-    private Set<Employee> employees = new LinkedHashSet<>();
 
     public String getId() {
         return id;
@@ -35,14 +27,6 @@ public class Territory {
 
     public void setTerritoryDescription(String territoryDescription) {
         this.territoryDescription = territoryDescription;
-    }
-
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
     }
 
 }

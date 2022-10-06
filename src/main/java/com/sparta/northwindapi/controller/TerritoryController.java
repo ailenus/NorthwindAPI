@@ -1,5 +1,8 @@
 package com.sparta.northwindapi.controller;
 
+import com.sparta.northwindapi.dao.DAO;
+import com.sparta.northwindapi.dao.ShipperDAO;
+import com.sparta.northwindapi.dto.TerritoryDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/territory")
 public class TerritoryController {
+
+    DAO<TerritoryDTO> dao;
+
+    public TerritoryController(DAO<TerritoryDTO> dao) {
+        this.dao = dao;
+    }
+
     @GetMapping({"","/"})
     public String basic() {
         return """
@@ -27,5 +37,11 @@ public class TerritoryController {
                     </body>
                 </html>
                 """;
+    }
+
+    @GetMapping("/run")
+    public String run() {
+        dao.findAll();
+        return String.format("", "");
     }
 }

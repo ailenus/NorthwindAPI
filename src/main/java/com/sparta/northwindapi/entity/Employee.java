@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Employees")
+@Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,7 +66,7 @@ public class Employee {
     private Float salary;
 
     @ManyToMany
-    @JoinTable(name = "EmployeeTerritories",
+    @JoinTable(name = "employee_territories",
             joinColumns = @JoinColumn(name = "EmployeeID"),
             inverseJoinColumns = @JoinColumn(name = "TerritoryID"))
     private Set<Territory> territories = new LinkedHashSet<>();

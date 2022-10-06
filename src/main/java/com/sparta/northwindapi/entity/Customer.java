@@ -3,7 +3,7 @@ package com.sparta.northwindapi.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Customers")
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

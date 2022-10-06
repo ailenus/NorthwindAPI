@@ -42,6 +42,22 @@ public class ShipperController {
         this.DAO = dao;
     }
 
+    @GetMapping("all")
+    public ResponseEntity<String> getAll() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        ResponseEntity<String> result;
+        httpHeaders.add("content-type", "application/json");
+        try {
+            result = new ResponseEntity<>(
+                    objectMapper.writeValueAsString(DAO.findAll()), httpHeaders,
+                    HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<String> get(@PathVariable int id) {
         Optional<ShipperDTO> optional = DAO.findById(id);
@@ -69,22 +85,16 @@ public class ShipperController {
     @GetMapping("/{id}/company_name")
     public ResponseEntity<String> getCompanyName(@PathVariable int id) {
         Optional<ShipperDTO> optional = DAO.findById(id);
-        ObjectMapper objectMapper = new ObjectMapper();
         HttpHeaders httpHeaders = new HttpHeaders();
         ResponseEntity<String> result;
         httpHeaders.add("content-type", "text/plain");
         if (optional.isPresent()) {
             ShipperDTO item = optional.get();
-            try {
-                result = new ResponseEntity<>(
-                        objectMapper.writeValueAsString(item.getCompanyName()),
-                        httpHeaders, HttpStatus.OK);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+            result = new ResponseEntity<>(item.getCompanyName(), httpHeaders,
+                    HttpStatus.OK);
         } else {
-            result = new ResponseEntity<>("message: Shipper not found",
-                    httpHeaders, HttpStatus.OK);
+            result = new ResponseEntity<>("Shipper not found", httpHeaders,
+                    HttpStatus.OK);
         }
         return result;
     }
@@ -92,22 +102,16 @@ public class ShipperController {
     @GetMapping("{id}/phone")
     public ResponseEntity<String> getPhone(@PathVariable int id) {
         Optional<ShipperDTO> optional = DAO.findById(id);
-        ObjectMapper objectMapper = new ObjectMapper();
         HttpHeaders httpHeaders = new HttpHeaders();
         ResponseEntity<String> result;
         httpHeaders.add("content-type", "text/plain");
         if (optional.isPresent()) {
             ShipperDTO item = optional.get();
-            try {
-                result = new ResponseEntity<>(
-                        objectMapper.writeValueAsString(item.getPhone()),
-                        httpHeaders, HttpStatus.OK);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+            result = new ResponseEntity<>(item.getPhone(), httpHeaders,
+                    HttpStatus.OK);
         } else {
-            result = new ResponseEntity<>("message: Shipper not found",
-                    httpHeaders, HttpStatus.OK);
+            result = new ResponseEntity<>("Shipper not found", httpHeaders,
+                    HttpStatus.OK);
         }
         return result;
     }
@@ -151,25 +155,15 @@ public class ShipperController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
-        Optional<ShipperDTO> optional = DAO.findById(id);
-        ObjectMapper objectMapper = new ObjectMapper();
         HttpHeaders httpHeaders = new HttpHeaders();
         ResponseEntity<String> result;
-        httpHeaders.add("content-type", "application/json");
-        if (optional.isPresent()) {
-            ShipperDTO item = optional.get();
-            DAO.delete(item);
-            try {
-                result = new ResponseEntity<>(
-                        objectMapper.writeValueAsString(item), httpHeaders,
-                        HttpStatus.OK);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+        httpHeaders.add("content-type", "text/plain");
+        if (DAO.deleteById(id)) {
+            result = new ResponseEntity<>("Deleted shipper " + id, httpHeaders,
+                    HttpStatus.OK);
         } else {
-            result =
-                    new ResponseEntity<>("{\"message\": \"Shipper not found\"}",
-                            httpHeaders, HttpStatus.OK);
+            result = new ResponseEntity<>("Shipper not found", httpHeaders,
+                    HttpStatus.OK);
         }
         return result;
     }

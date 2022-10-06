@@ -5,6 +5,7 @@ import com.sparta.northwindapi.entity.Shipper;
 import com.sparta.northwindapi.repo.ShipperRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +19,13 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public int insert(ShipperDTO item) {
+        // TODO
         return 0;
     }
 
     @Override
     public boolean insertById(ShipperDTO item, int id) {
+        // TODO
         return false;
     }
 
@@ -49,6 +52,7 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public boolean updateById(ShipperDTO item, int id) {
+        // TODO
         return false;
     }
 
@@ -68,7 +72,11 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public boolean deleteById(int id) {
-        return false;
+        if (!REPOSITORY.existsById(id)) {
+            return false;
+        }
+        REPOSITORY.deleteById(id);
+        return true;
     }
 
     @Override
@@ -86,7 +94,13 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public List<ShipperDTO> findAll() {
-        return null;
+        List<Shipper> list = REPOSITORY.findAll();
+        List<ShipperDTO> result = new ArrayList<>();
+        for (Shipper shipper : list) {
+            result.add(new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
+                    shipper.getPhone()));
+        }
+        return result;
     }
 
     @Override

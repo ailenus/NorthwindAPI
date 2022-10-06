@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "territories")
+@Table(name = "Territories")
 public class Territory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Territory {
     private String territoryDescription;
 
     @ManyToMany
-    @JoinTable(name = "employeeterritories",
+    @JoinTable(name = "EmployeeTerritories",
             joinColumns = @JoinColumn(name = "TerritoryID"),
             inverseJoinColumns = @JoinColumn(name = "EmployeeID"))
     private Set<Employee> employees = new LinkedHashSet<>();

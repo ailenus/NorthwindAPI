@@ -1,11 +1,9 @@
 package com.sparta.northwindapi.entity;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "Customers")
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +39,6 @@ public class Customer {
 
     @Column(name = "Fax", length = 24)
     private String fax;
-
-    @OneToMany(mappedBy = "customerID")
-    private Set<Order> orders = new LinkedHashSet<>();
 
     public String getId() {
         return id;
@@ -131,14 +126,6 @@ public class Customer {
 
     public void setFax(String fax) {
         this.fax = fax;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 
 }

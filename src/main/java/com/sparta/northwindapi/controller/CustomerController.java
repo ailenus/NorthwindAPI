@@ -34,12 +34,4 @@ public class CustomerController {
                 </html>
                 """;
     }
-
-    @GetMapping("/{id}")
-    public Customer getCustomer(@PathVariable String id) {
-    }
-
-    @GetMapping("/all")
-    public List<Customer> getAllActors() {
-    }
 }

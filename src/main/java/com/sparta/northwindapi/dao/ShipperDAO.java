@@ -27,20 +27,20 @@ public class ShipperDAO implements DAO<ShipperDTO> {
     }
 
     @Override
-    public int update(ShipperDTO dto) {
-        Optional<Shipper> optional = REPOSITORY.findById(dto.getId());
+    public int update(ShipperDTO item) {
+        Optional<Shipper> optional = REPOSITORY.findById(item.getId());
         if (optional.isEmpty()) {
              return -1;
         }
         Shipper shipper = optional.get();
-        if (dto.getCompanyName() != null) {
-            shipper.setCompanyName(dto.getCompanyName());
+        if (item.getCompanyName() != null) {
+            shipper.setCompanyName(item.getCompanyName());
         }
-        if (dto.getPhone() != null) {
-            shipper.setPhone(dto.getPhone());
+        if (item.getPhone() != null) {
+            shipper.setPhone(item.getPhone());
         }
         REPOSITORY.save(shipper);
-        Optional<Shipper> result = REPOSITORY.findById(dto.getId());
+        Optional<Shipper> result = REPOSITORY.findById(item.getId());
         if (result.isPresent()) {
             shipper = result.get();
         }
@@ -54,7 +54,16 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public int delete(ShipperDTO item) {
-        return 0;
+        if (item == null) {
+            return -1;
+        }
+        int id = item.getId();
+        try {
+            REPOSITORY.deleteById(id);
+            return id;
+        } catch (IllegalArgumentException e) {
+            return -1;
+        }
     }
 
     @Override

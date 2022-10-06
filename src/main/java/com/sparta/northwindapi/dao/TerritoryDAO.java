@@ -51,7 +51,7 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
     }
 
     @Override
-    public boolean insertById(int id) {
+    public boolean deleteById(int id) {
         return false;
     }
 

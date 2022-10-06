@@ -61,7 +61,7 @@ public class Employee {
     @Column(name = "Notes", nullable = false)
     private String notes;
 
-    @JsonBackReference
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ReportsTo")
     private Employee reportsTo;
@@ -72,11 +72,10 @@ public class Employee {
     @Column(name = "Salary")
     private Float salary;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "employeeID")
     private Set<Order> orders = new LinkedHashSet<>();
 
-    @JsonBackReference
+
     @ManyToMany
     @JoinTable(name = "EmployeeTerritories",
             joinColumns = @JoinColumn(name = "EmployeeID"),

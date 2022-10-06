@@ -1,5 +1,6 @@
 package com.sparta.northwindapi.dao;
 
+
 import com.sparta.northwindapi.dto.DTO;
 
 import java.util.List;
@@ -51,4 +52,3 @@ public class TerritoryDAO implements DAO {
     public boolean deleteAll() {
         return false;
     }
-}

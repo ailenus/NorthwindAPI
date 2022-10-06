@@ -12,12 +12,27 @@ public class CustomerDAO {
     @Autowired
     private CustomerRepository REPOSITORY;
 
-//    public CustomerDAO(CustomerRepository actorRepo) {
-//        this.REPOSITORY = actorRepo;
-//    }
+
+    public CustomerDAO() {
+
+    }
 
 
-    public CustomerDTO read(CustomerDTO customerDTO) {
+    public CustomerDTO findById(String id) {
+        Optional<Customer> optionalCust = REPOSITORY.findById(id);
+        if (optionalCust.isPresent()) {
+            return new CustomerDTO(optionalCust.get().getId(),
+                    optionalCust.get().getCompanyName(),
+                    optionalCust.get().getContactName(),
+                    optionalCust.get().getContactTitle(),
+                    optionalCust.get().getAddress(),
+                    optionalCust.get().getCity(),
+                    optionalCust.get().getRegion(),
+                    optionalCust.get().getPostalCode(),
+                    optionalCust.get().getCountry(),
+                    optionalCust.get().getPhone(),
+                    optionalCust.get().getFax());
+        }
         return new CustomerDTO("-1",
                 null,
                 null,

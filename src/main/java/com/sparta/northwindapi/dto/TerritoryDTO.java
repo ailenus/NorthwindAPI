@@ -2,28 +2,29 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Territory;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link Territory} entity
  */
-public class TerritoryDTO extends DTO {
-    private String id;
+public class TerritoryDTO  extends DTO {
+    private Integer id;
     private String territoryDescription;
 
     public TerritoryDTO() {
     }
 
-    public TerritoryDTO(String id, String territoryDescription) {
+    public TerritoryDTO(Integer id, String territoryDescription) {
         this.id = id;
         this.territoryDescription = territoryDescription;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public TerritoryDTO setId(String id) {
+    public TerritoryDTO setId(Integer id) {
         this.id = id;
         return this;
     }

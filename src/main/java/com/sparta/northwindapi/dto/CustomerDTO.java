@@ -2,13 +2,14 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Customer;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link Customer} entity
  */
 public class CustomerDTO extends DTO {
-    private String id;
+    private Integer id;
     private String companyName;
     private String contactName;
     private String contactTitle;
@@ -23,7 +24,7 @@ public class CustomerDTO extends DTO {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String id, String companyName, String contactName, String contactTitle, String address, String city, String region, String postalCode, String country, String phone, String fax) {
+    public CustomerDTO(Integer id, String companyName, String contactName, String contactTitle, String address, String city, String region, String postalCode, String country, String phone, String fax) {
         this.id = id;
         this.companyName = companyName;
         this.contactName = contactName;
@@ -37,11 +38,11 @@ public class CustomerDTO extends DTO {
         this.fax = fax;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public CustomerDTO setId(String id) {
+    public CustomerDTO setId(Integer id) {
         this.id = id;
         return this;
     }

@@ -37,14 +37,14 @@ public class CustomerController {
     }
 
     @PatchMapping("id/{id}/name/{companyName}")
-    public CustomerDTO updateCustomerById(@PathVariable String id, @PathVariable String companyName) {
+    public CustomerDTO updateCustomerById(@PathVariable int id, @PathVariable String companyName) {
         CustomerDTO customerDTO = new CustomerDTO(id, companyName, null, null, null, null, null, null, null, null, null);
         customerDTO = customerDAO.update(customerDTO);
         return customerDTO;
     }
 
     @GetMapping("/id/{id}")
-    public CustomerDTO getCustomerById(@PathVariable String id) {
+    public CustomerDTO getCustomerById(@PathVariable int id) {
         CustomerDTO customerDTO = customerDAO.findById(id);
         return customerDTO;
     }

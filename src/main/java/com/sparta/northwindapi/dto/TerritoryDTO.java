@@ -2,6 +2,7 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Territory;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**

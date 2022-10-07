@@ -1,7 +1,9 @@
 package com.sparta.northwindapi.dao;
 
 import com.sparta.northwindapi.dto.CustomerDTO;
+import com.sparta.northwindapi.dto.TerritoryDTO;
 import com.sparta.northwindapi.entity.Customer;
+import com.sparta.northwindapi.entity.Territory;
 import com.sparta.northwindapi.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,24 +49,13 @@ public class CustomerDAO {
 
 
 
-
-    public CustomerDTO update(CustomerDTO customerDTO) {
+    public int update(CustomerDTO customerDTO) {
         Optional<Customer> optional = REPOSITORY.findById(customerDTO.getId());
         Customer theCustomer = null;
         if (optional.isPresent())
             theCustomer = optional.get();
         else
-            return new CustomerDTO(-1,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null);
+            return -1;
         if (customerDTO.getId() != null)
             theCustomer.setId(customerDTO.getId());
         if (customerDTO.getCompanyName() != null)
@@ -89,18 +80,7 @@ public class CustomerDAO {
             theCustomer.setFax(customerDTO.getFax());
 
 
-        //actorRepo.save(theActor);
-        theCustomer = REPOSITORY.findById(customerDTO.getId()).get();
-        return new CustomerDTO(theCustomer.getId(),
-                theCustomer.getCompanyName(),
-                theCustomer.getContactName(),
-                theCustomer.getContactTitle(),
-                theCustomer.getAddress(),
-                theCustomer.getCity(),
-                theCustomer.getRegion(),
-                theCustomer.getPostalCode(),
-                theCustomer.getCountry(),
-                theCustomer.getPhone(),
-                theCustomer.getFax());
+        REPOSITORY.save(theCustomer);
+        return customerDTO.getId();
     }
 }

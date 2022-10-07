@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/territory")
 public class TerritoryController {
 
-    DAO<TerritoryDTO> dao;
+    private final DAO<TerritoryDTO> dao;
 
     public TerritoryController(DAO<TerritoryDTO> dao) {
         this.dao = dao;
@@ -50,7 +50,6 @@ public class TerritoryController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public TerritoryDTO getById(@PathVariable int id) {
         Optional<TerritoryDTO> result = dao.findById(id);
-        System.out.printf("%s result for id: %s\n", result.isPresent()?"got":"no", id);
         if (result.isPresent()) return result.get();
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }

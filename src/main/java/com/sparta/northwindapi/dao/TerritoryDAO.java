@@ -2,6 +2,7 @@ package com.sparta.northwindapi.dao;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.sparta.northwindapi.dto.TerritoryDTO;
+import com.sparta.northwindapi.entity.Territory;
 import com.sparta.northwindapi.repo.TerritoryRepository;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,13 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
 
     @Override
     public Optional<TerritoryDTO> findById(int id) {
-        return Optional.empty();
+        Optional<TerritoryDTO> result;
+        Optional<Territory> territory;
+        if ((territory = repository.findById(id)).isPresent())
+            result = Optional.of(assembler.assembleTerritory(territory.get()));
+        else
+            result = Optional.empty();
+        return result;
     }
 
     @Override

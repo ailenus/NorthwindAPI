@@ -23,7 +23,7 @@ public class ShipperController {
         this.dao = dao;
     }
 
-    @GetMapping("/")
+    @GetMapping({"","/"})
     public String basic() {
         return """
                 <!DOCTYPE html>

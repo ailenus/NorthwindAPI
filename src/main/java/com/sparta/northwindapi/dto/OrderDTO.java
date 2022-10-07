@@ -2,7 +2,6 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Order;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;

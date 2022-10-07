@@ -2,7 +2,6 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Employee;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Objects;

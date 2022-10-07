@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,6 +38,12 @@ public class TerritoryController {
                         <h1 class="center">
                             Welcome to the Territory Sector of the API
                         </h1>
+                        <br>
+                        <h2>GET options:</h2>
+                        <ul>
+                            <li>To get a territory by ID -> <code>/territory/id/<i>territory_id</i></code></li>
+                            <li>To get all territories -> <code>/territory/all</code></li>
+                        </ul>
                     </body>
                 </html>
                 """;
@@ -46,8 +53,15 @@ public class TerritoryController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public TerritoryDTO getById(@PathVariable int id) {
         Optional<TerritoryDTO> result = dao.findById(id);
-        if (result.isPresent())
-            return result.get();
+        System.out.printf("%s result for id: %s\n", result.isPresent()?"got":"no", id);
+        if (result.isPresent()) return result.get();
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<TerritoryDTO> getAll() {
+        return dao.findAll();
+    }
+
 }

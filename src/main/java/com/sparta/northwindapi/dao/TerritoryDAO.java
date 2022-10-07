@@ -6,6 +6,7 @@ import com.sparta.northwindapi.entity.Territory;
 import com.sparta.northwindapi.repo.TerritoryRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,11 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
 
     @Override
     public List<TerritoryDTO> findAll() {
-        return null;
+        List<Territory> territories = repository.findAll();
+        List<TerritoryDTO> results = new ArrayList<>();
+        for (Territory territory: territories)
+            results.add(assembler.assembleTerritory(territory));
+        return results;
     }
 
     @Override

@@ -199,7 +199,6 @@ public class Employee {
         this.notes = notes;
     }
 
-
     public String getPhotoPath() {
         return photoPath;
     }

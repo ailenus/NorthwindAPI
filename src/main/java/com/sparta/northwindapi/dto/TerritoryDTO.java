@@ -9,7 +9,6 @@ import java.util.Objects;
  * A DTO for the {@link Territory} entity
  */
 public class TerritoryDTO  extends DTO {
-    private Integer id;
     private String territoryDescription;
 
     public TerritoryDTO() {
@@ -20,10 +19,7 @@ public class TerritoryDTO  extends DTO {
         this.territoryDescription = territoryDescription;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
+    @Override
     public TerritoryDTO setId(Integer id) {
         this.id = id;
         return this;

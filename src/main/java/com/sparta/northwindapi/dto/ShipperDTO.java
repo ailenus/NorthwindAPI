@@ -9,7 +9,6 @@ import java.util.Objects;
  * A DTO for the {@link Shipper} entity
  */
 public class ShipperDTO extends DTO {
-    private Integer id;
     private String companyName;
     private String phone;
 
@@ -22,10 +21,7 @@ public class ShipperDTO extends DTO {
         this.phone = phone;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
+    @Override
     public ShipperDTO setId(Integer id) {
         this.id = id;
         return this;

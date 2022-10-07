@@ -11,7 +11,6 @@ import java.util.Objects;
  * A DTO for the {@link Order} entity
  */
 public class OrderDTO extends DTO {
-    private Integer id;
     private EmployeeDTO employeeID;
     private CustomerDTO customerID;
     private Instant orderDate;
@@ -46,10 +45,7 @@ public class OrderDTO extends DTO {
         this.shipCountry = shipCountry;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
+    @Override
     public OrderDTO setId(Integer id) {
         this.id = id;
         return this;

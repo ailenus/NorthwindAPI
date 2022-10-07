@@ -9,7 +9,6 @@ import java.util.Objects;
  * A DTO for the {@link Customer} entity
  */
 public class CustomerDTO extends DTO {
-    private Integer id;
     private String companyName;
     private String contactName;
     private String contactTitle;
@@ -38,10 +37,7 @@ public class CustomerDTO extends DTO {
         this.fax = fax;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
+    @Override
     public CustomerDTO setId(Integer id) {
         this.id = id;
         return this;

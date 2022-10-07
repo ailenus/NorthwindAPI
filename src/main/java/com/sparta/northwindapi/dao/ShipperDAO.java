@@ -3,18 +3,20 @@ package com.sparta.northwindapi.dao;
 import com.sparta.northwindapi.dto.ShipperDTO;
 import com.sparta.northwindapi.entity.Shipper;
 import com.sparta.northwindapi.repo.ShipperRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 public class ShipperDAO implements DAO<ShipperDTO> {
-    private final ShipperRepository REPOSITORY;
+    private final ShipperRepository repository;
+    private final Assembler assembler;
 
-    public ShipperDAO(ShipperRepository repository) {
-        this.REPOSITORY = repository;
+    public ShipperDAO(ShipperRepository repository, Assembler assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
     @Override
@@ -30,8 +32,28 @@ public class ShipperDAO implements DAO<ShipperDTO> {
     }
 
     @Override
+    public Optional<ShipperDTO> findById(int id) {
+        Optional<ShipperDTO> result;
+        Optional<Shipper> shipper;
+        if ((shipper = repository.findById(id)).isPresent())
+            result = Optional.of(assembler.assembleShipper(shipper.get()));
+        else
+            result = Optional.empty();
+        return result;
+    }
+
+    @Override
+    public List<ShipperDTO> findAll() {
+        List<Shipper> shippers = repository.findAll();
+        List<ShipperDTO> results = new ArrayList<>();
+        for (Shipper shipper: shippers)
+            results.add(assembler.assembleShipper(shipper));
+        return results;
+    }
+
+    @Override
     public int update(ShipperDTO item) {
-        Optional<Shipper> optional = REPOSITORY.findById(item.getId());
+        Optional<Shipper> optional = repository.findById(item.getId());
         if (optional.isEmpty()) {
              return -1;
         }
@@ -42,8 +64,8 @@ public class ShipperDAO implements DAO<ShipperDTO> {
         if (item.getPhone() != null) {
             shipper.setPhone(item.getPhone());
         }
-        REPOSITORY.save(shipper);
-        Optional<Shipper> result = REPOSITORY.findById(item.getId());
+        repository.save(shipper);
+        Optional<Shipper> result = repository.findById(item.getId());
         if (result.isPresent()) {
             shipper = result.get();
         }
@@ -63,7 +85,7 @@ public class ShipperDAO implements DAO<ShipperDTO> {
         }
         int id = item.getId();
         try {
-            REPOSITORY.deleteById(id);
+            repository.deleteById(id);
             return id;
         } catch (IllegalArgumentException e) {
             return -1;
@@ -72,35 +94,11 @@ public class ShipperDAO implements DAO<ShipperDTO> {
 
     @Override
     public boolean deleteById(int id) {
-        if (!REPOSITORY.existsById(id)) {
+        if (!repository.existsById(id)) {
             return false;
         }
-        REPOSITORY.deleteById(id);
+        repository.deleteById(id);
         return true;
-    }
-
-    @Override
-    public Optional<ShipperDTO> findById(int id) {
-        Optional<Shipper> optional = REPOSITORY.findById(id);
-        if (optional.isPresent()) {
-            Shipper shipper = optional.get();
-            return Optional.of(
-                    new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
-                            shipper.getPhone()));
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public List<ShipperDTO> findAll() {
-        List<Shipper> list = REPOSITORY.findAll();
-        List<ShipperDTO> result = new ArrayList<>();
-        for (Shipper shipper : list) {
-            result.add(new ShipperDTO(shipper.getId(), shipper.getCompanyName(),
-                    shipper.getPhone()));
-        }
-        return result;
     }
 
     @Override

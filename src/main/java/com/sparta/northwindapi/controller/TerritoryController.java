@@ -1,8 +1,6 @@
 package com.sparta.northwindapi.controller;
 
 import com.sparta.northwindapi.dao.DAO;
-import com.sparta.northwindapi.dao.ShipperDAO;
-import com.sparta.northwindapi.dao.TerritoryDAO;
 import com.sparta.northwindapi.dto.TerritoryDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +28,6 @@ public class TerritoryController {
                         <title>Northwind API</title>
                         <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/originals/03/ed/de/03edde789384ab169b248e0b37c96d47.jpg">
                         <style>
-                        .right { text-align:right; }
                         .center { text-align:center; }
                         </style>
                     </head>

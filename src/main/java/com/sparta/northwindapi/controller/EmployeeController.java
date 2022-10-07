@@ -76,7 +76,7 @@ public class EmployeeController {
     @GetMapping("/all")
     public ResponseEntity<String> getAllEmployees() {
 
-        List<Employee> list = DAO.findAll();
+        List<EmployeeDTO> list = DAO.findAll();
         List<String> result = new ArrayList<>();
         list.stream().forEach(employee -> {
             try {

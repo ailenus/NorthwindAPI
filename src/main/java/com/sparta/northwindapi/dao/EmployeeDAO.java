@@ -1,17 +1,13 @@
 package com.sparta.northwindapi.dao;
 
-import com.sparta.northwindapi.dto.DTO;
 import com.sparta.northwindapi.dto.EmployeeDTO;
-import com.sparta.northwindapi.dto.TerritoryDTO;
 import com.sparta.northwindapi.entity.Employee;
-import com.sparta.northwindapi.entity.Territory;
 import com.sparta.northwindapi.repo.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class EmployeeDAO implements DAO<EmployeeDTO> {
@@ -32,14 +28,15 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
         return result;
     }
 
-    public static Set<TerritoryDTO> setTerritoriesThing(Set<Territory> t){
-
-        Set<TerritoryDTO> result = new LinkedHashSet<>();
-
-        t.stream().forEach(territory -> {result.add(new TerritoryDTO(territory.getId(), territory.getTerritoryDescription()));});
-
-        return result;
-    }
+    // Redundant method for removal?
+//    public static Set<TerritoryDTO> setTerritoriesThing(Set<Territory> t){
+//
+//        Set<TerritoryDTO> result = new LinkedHashSet<>();
+//
+//        t.stream().forEach(territory -> {result.add(new TerritoryDTO(territory.getId(), territory.getTerritoryDescription()));});
+//
+//        return result;
+//    }
     @Override
     public int  update(EmployeeDTO item) {
         Optional<Employee> optional = REPOSITORY.findById(item.getId());
@@ -74,8 +71,12 @@ public class EmployeeDAO implements DAO<EmployeeDTO> {
     }
 
     @Override
-    public List findAll() {
-        return REPOSITORY.findAll();
+    public List<EmployeeDTO> findAll() {
+        List<Employee> employees = REPOSITORY.findAll();
+        List<EmployeeDTO> results = new ArrayList<>();
+        for (Employee employee: employees)
+            results.add(ASSEMBLER.assembleEmployee(employee));
+        return results;
     }
 
     @Override

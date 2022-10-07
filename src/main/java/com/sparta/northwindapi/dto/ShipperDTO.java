@@ -2,7 +2,6 @@ package com.sparta.northwindapi.dto;
 
 import com.sparta.northwindapi.entity.Shipper;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**

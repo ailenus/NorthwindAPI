@@ -45,7 +45,8 @@ public class MainController implements ErrorController {
                         <style>.center { text-align:center; }</style>
                     </head>
                     <body>
-                        <h1 class="center">There has been an error.</h1>
+                        <h1 class="center">404</h1>
+                        <h2 class="center">There has been an error.</h2>
                         <br>
                         <h2><a href="/">Go home</a></h2>
                     </body>

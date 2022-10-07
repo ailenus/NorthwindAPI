@@ -5,6 +5,7 @@ import com.sparta.northwindapi.entity.Order;
 import com.sparta.northwindapi.repo.OrderRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,8 +84,12 @@ public class OrderDAO implements DAO<OrderDTO>{
     }
 
     @Override
-    public List findAll() {
-        return null;
+    public List<OrderDTO> findAll() {
+        List<Order> orders = orderRepository.findAll();
+        List<OrderDTO> results = new ArrayList<>();
+        for (Order order: orders)
+            results.add(assembler.assembleOrder(order));
+        return results;
     }
 
     @Override

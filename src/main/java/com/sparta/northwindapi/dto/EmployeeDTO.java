@@ -12,7 +12,6 @@ import java.util.Set;
  * A DTO for the {@link Employee} entity
  */
 public class EmployeeDTO extends DTO {
-    private Integer id;
     private String lastName;
     private String firstName;
     private String title;
@@ -57,10 +56,7 @@ public class EmployeeDTO extends DTO {
         this.territories = territories;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
+    @Override
     public EmployeeDTO setId(Integer id) {
         this.id = id;
         return this;

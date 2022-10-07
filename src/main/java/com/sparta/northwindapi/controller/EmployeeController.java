@@ -46,6 +46,7 @@ public class EmployeeController {
                 """;
     }
 
+
     @GetMapping("/id/{id}")
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public EmployeeDTO getById(@PathVariable int id) {
@@ -57,7 +58,48 @@ public class EmployeeController {
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<EmployeeDTO> getAll() {
-        return dao.findAll();
+
+        return DAO.findAll();
+    }
+
+    @PatchMapping("{id}/{firstName}")
+    public ResponseEntity<String> updateFirstName(@PathVariable int id, @PathVariable String firstName){
+
+        ResponseEntity<String> result = null;
+        Optional<EmployeeDTO> optional = DAO.findById(id);
+        if (optional.isPresent()){
+            EmployeeDTO item = optional.get();
+            item.setFirstName(firstName);
+            DAO.update(item);
+            try {
+                result = new ResponseEntity<>(
+                        objectMapper.writeValueAsString(item), httpHeaders,
+                        HttpStatus.OK);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            result =
+                    new ResponseEntity<>("{\"message\": \"Employee not found\"}",
+                            httpHeaders, HttpStatus.OK);
+        }
+        return result;
+    }
+
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        ResponseEntity<String> result;
+        if (DAO.deleteById(id)) {
+            result = new ResponseEntity<>("Deleted Employee " + id, httpHeaders,
+                    HttpStatus.OK);
+        } else {
+            result = new ResponseEntity<>("Employee not found", httpHeaders,
+                    HttpStatus.OK);
+        }
+        return result;
     }
 
 //    @PatchMapping("{id}/{firstName}")

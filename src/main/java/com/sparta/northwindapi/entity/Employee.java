@@ -199,6 +199,14 @@ public class Employee {
         this.notes = notes;
     }
 
+    public Employee getReportsTo() {
+        return reportsTo;
+    }
+
+    public void setReportsTo(Employee reportsTo) {
+        this.reportsTo = reportsTo;
+    }
+
     public String getPhotoPath() {
         return photoPath;
     }

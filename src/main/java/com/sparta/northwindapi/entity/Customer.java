@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CustomerID", nullable = false, length = 5)
-    private String id;
+    @Column(name = "CustomerID", nullable = false)
+    private Integer id;
 
     @Column(name = "CompanyName", nullable = false, length = 40)
     private String companyName;
@@ -40,11 +40,11 @@ public class Customer {
     @Column(name = "Fax", length = 24)
     private String fax;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

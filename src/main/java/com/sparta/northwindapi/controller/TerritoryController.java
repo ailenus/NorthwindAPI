@@ -50,4 +50,7 @@ public class TerritoryController {
             return result.get();
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/id/all")
+
 }

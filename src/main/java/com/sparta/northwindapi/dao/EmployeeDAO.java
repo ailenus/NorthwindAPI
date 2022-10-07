@@ -16,60 +16,21 @@ import java.util.Set;
 @Service
 public class EmployeeDAO implements DAO<EmployeeDTO> {
     private final EmployeeRepository REPOSITORY;
+    private final Assembler ASSEMBLER = new Assembler();
 
     private EmployeeDAO(EmployeeRepository repository) {
         this.REPOSITORY = repository;
     }
 
-    @Override
     public Optional<EmployeeDTO> findById(int id) {
-            Optional<Employee> optional = REPOSITORY.findById(id); // Finds employee
-            if (optional.isEmpty()){
-                return Optional.of(new EmployeeDTO(
-                        -1,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                ));
-            } else {
-                Employee employee = optional.get();
-                return Optional.of(new EmployeeDTO(
-                        employee.getId(),
-                        employee.getLastName(),
-                        employee.getFirstName(),
-                        employee.getTitle(),
-                        employee.getTitleOfCourtesy(),
-                        employee.getBirthDate(),
-                        employee.getHireDate(),
-                        employee.getAddress(),
-                        employee.getCity(),
-                        employee.getRegion(),
-                        employee.getPostalCode(),
-                        employee.getCountry(),
-                        employee.getHomePhone(),
-                        employee.getExtension(),
-                        employee.getPhoto(),
-                        employee.getNotes(),
-                        employee.getPhotoPath(),
-                        employee.getSalary(),
-                        setTerritoriesThing(employee.getTerritories())));
-            }
-        }
+        Optional<EmployeeDTO> result;
+        Optional<Employee> employee;
+        if ((employee = REPOSITORY.findById(id)).isPresent())
+            result = Optional.of(ASSEMBLER.assembleEmployee(employee.get()));
+        else
+            result = Optional.empty();
+        return result;
+    }
 
     public static Set<TerritoryDTO> setTerritoriesThing(Set<Territory> t){
 

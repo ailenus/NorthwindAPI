@@ -1,12 +1,24 @@
 package com.sparta.northwindapi.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sparta.northwindapi.dao.DAO;
+import com.sparta.northwindapi.dao.OrderDAO;
+import com.sparta.northwindapi.dto.OrderDTO;
+import com.sparta.northwindapi.dto.TerritoryDTO;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+
     @GetMapping({"","/"})
     public String basic() {
         return """
@@ -28,4 +40,22 @@ public class OrderController {
                 </html>
                 """;
     }
+
+    private  final DAO<OrderDTO> dao;
+
+    public OrderController(DAO<OrderDTO> dao) {
+        this.dao = dao;
+    }
+    @GetMapping("/id/{id}")
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public OrderDTO getOrder(@PathVariable int id){
+
+        Optional<OrderDTO> result = dao.findById(id);
+        if (result.isPresent())
+            return result.get();
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+
+    //@PatchMapping("/")
 }

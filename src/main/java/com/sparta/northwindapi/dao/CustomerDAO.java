@@ -4,10 +4,13 @@ import com.sparta.northwindapi.dto.CustomerDTO;
 import com.sparta.northwindapi.entity.Customer;
 import com.sparta.northwindapi.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-public class CustomerDAO implements DAO<CustomerDTO> {
+
+@Service
+public class CustomerDAO {
 
     @Autowired
     private CustomerRepository REPOSITORY;
@@ -16,7 +19,6 @@ public class CustomerDAO implements DAO<CustomerDTO> {
     public CustomerDAO() {
 
     }
-
 
     public CustomerDTO findById(String id) {
         Optional<Customer> optionalCust = REPOSITORY.findById(id);

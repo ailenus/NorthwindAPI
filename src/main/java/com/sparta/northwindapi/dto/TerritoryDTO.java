@@ -8,23 +8,19 @@ import java.util.Objects;
 /**
  * A DTO for the {@link Territory} entity
  */
-public class TerritoryDTO extends DTO {
-    private String id;
+public class TerritoryDTO  extends DTO {
     private String territoryDescription;
 
     public TerritoryDTO() {
     }
 
-    public TerritoryDTO(String id, String territoryDescription) {
+    public TerritoryDTO(Integer id, String territoryDescription) {
         this.id = id;
         this.territoryDescription = territoryDescription;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public TerritoryDTO setId(String id) {
+    @Override
+    public TerritoryDTO setId(Integer id) {
         this.id = id;
         return this;
     }

@@ -12,13 +12,13 @@ public class Order {
     @Column(name = "OrderID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerID")
-    private Customer customerID;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EmployeeID")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "EmployeeID", nullable = false)
     private Employee employeeID;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "CustomerID", nullable = false)
+    private Customer customerID;
 
     @Column(name = "OrderDate")
     private Instant orderDate;
@@ -62,20 +62,20 @@ public class Order {
         this.id = id;
     }
 
-    public Customer getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
-    }
-
     public Employee getEmployeeID() {
         return employeeID;
     }
 
     public void setEmployeeID(Employee employeeID) {
         this.employeeID = employeeID;
+    }
+
+    public Customer getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
 
     public Instant getOrderDate() {

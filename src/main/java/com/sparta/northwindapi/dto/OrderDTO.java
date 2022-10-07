@@ -11,9 +11,8 @@ import java.util.Objects;
  * A DTO for the {@link Order} entity
  */
 public class OrderDTO extends DTO {
-    private Integer id;
-    private CustomerDTO customerID;
     private EmployeeDTO employeeID;
+    private CustomerDTO customerID;
     private Instant orderDate;
     private Instant requiredDate;
     private Instant shippedDate;
@@ -29,10 +28,10 @@ public class OrderDTO extends DTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(Integer id, CustomerDTO customerID, EmployeeDTO employeeID, Instant orderDate, Instant requiredDate, Instant shippedDate, ShipperDTO shipVia, BigDecimal freight, String shipName, String shipAddress, String shipCity, String shipRegion, String shipPostalCode, String shipCountry) {
+    public OrderDTO(Integer id, EmployeeDTO employeeID, CustomerDTO customerID, Instant orderDate, Instant requiredDate, Instant shippedDate, ShipperDTO shipVia, BigDecimal freight, String shipName, String shipAddress, String shipCity, String shipRegion, String shipPostalCode, String shipCountry) {
         this.id = id;
-        this.customerID = customerID;
         this.employeeID = employeeID;
+        this.customerID = customerID;
         this.orderDate = orderDate;
         this.requiredDate = requiredDate;
         this.shippedDate = shippedDate;
@@ -46,21 +45,9 @@ public class OrderDTO extends DTO {
         this.shipCountry = shipCountry;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
+    @Override
     public OrderDTO setId(Integer id) {
         this.id = id;
-        return this;
-    }
-
-    public CustomerDTO getCustomerID() {
-        return customerID;
-    }
-
-    public OrderDTO setCustomerID(CustomerDTO customerID) {
-        this.customerID = customerID;
         return this;
     }
 
@@ -70,6 +57,15 @@ public class OrderDTO extends DTO {
 
     public OrderDTO setEmployeeID(EmployeeDTO employeeID) {
         this.employeeID = employeeID;
+        return this;
+    }
+
+    public CustomerDTO getCustomerID() {
+        return customerID;
+    }
+
+    public OrderDTO setCustomerID(CustomerDTO customerID) {
+        this.customerID = customerID;
         return this;
     }
 
@@ -178,8 +174,8 @@ public class OrderDTO extends DTO {
         if (o == null || getClass() != o.getClass()) return false;
         OrderDTO entity = (OrderDTO) o;
         return Objects.equals(this.id, entity.id) &&
-                Objects.equals(this.customerID, entity.customerID) &&
                 Objects.equals(this.employeeID, entity.employeeID) &&
+                Objects.equals(this.customerID, entity.customerID) &&
                 Objects.equals(this.orderDate, entity.orderDate) &&
                 Objects.equals(this.requiredDate, entity.requiredDate) &&
                 Objects.equals(this.shippedDate, entity.shippedDate) &&
@@ -195,15 +191,15 @@ public class OrderDTO extends DTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerID, employeeID, orderDate, requiredDate, shippedDate, shipVia, freight, shipName, shipAddress, shipCity, shipRegion, shipPostalCode, shipCountry);
+        return Objects.hash(id, employeeID, customerID, orderDate, requiredDate, shippedDate, shipVia, freight, shipName, shipAddress, shipCity, shipRegion, shipPostalCode, shipCountry);
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
-                "customerID = " + customerID + ", " +
                 "employeeID = " + employeeID + ", " +
+                "customerID = " + customerID + ", " +
                 "orderDate = " + orderDate + ", " +
                 "requiredDate = " + requiredDate + ", " +
                 "shippedDate = " + shippedDate + ", " +

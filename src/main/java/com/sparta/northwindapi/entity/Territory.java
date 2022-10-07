@@ -1,23 +1,25 @@
 package com.sparta.northwindapi.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "territories")
 public class Territory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TerritoryID", nullable = false, length = 20)
-    private String id;
+    @Column(name = "TerritoryID", nullable = false)
+    private Integer id;
 
     @Column(name = "TerritoryDescription", nullable = false, length = 50)
     private String territoryDescription;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

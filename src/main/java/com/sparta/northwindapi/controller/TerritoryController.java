@@ -2,10 +2,13 @@ package com.sparta.northwindapi.controller;
 
 import com.sparta.northwindapi.dao.DAO;
 import com.sparta.northwindapi.dao.ShipperDAO;
+import com.sparta.northwindapi.dao.TerritoryDAO;
 import com.sparta.northwindapi.dto.TerritoryDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/territory")
@@ -39,9 +42,12 @@ public class TerritoryController {
                 """;
     }
 
-    @GetMapping("/run")
-    public String run() {
-        dao.findAll();
-        return String.format("", "");
+    @GetMapping("/id/{id}")
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public TerritoryDTO getById(@PathVariable int id) {
+        Optional<TerritoryDTO> result = dao.findById(id);
+        if (result.isPresent())
+            return result.get();
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 }

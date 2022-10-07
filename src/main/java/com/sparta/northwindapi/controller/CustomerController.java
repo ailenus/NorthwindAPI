@@ -1,14 +1,19 @@
 package com.sparta.northwindapi.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sparta.northwindapi.dao.CustomerDAO;
+import com.sparta.northwindapi.dto.CustomerDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+
+    @Autowired
+    private CustomerDAO customerDAO;
+
     @GetMapping({"","/"})
     public String basic() {
         return """
@@ -30,6 +35,20 @@ public class CustomerController {
                 </html>
                 """;
     }
+
+    @PatchMapping("id/{id}/name/{companyName}")
+    public CustomerDTO updateCustomerById(@PathVariable String id, @PathVariable String companyName) {
+        CustomerDTO customerDTO = new CustomerDTO(id, companyName, null, null, null, null, null, null, null, null, null);
+        customerDTO = customerDAO.update(customerDTO);
+        return customerDTO;
+    }
+
+    @GetMapping("/id/{id}")
+    public CustomerDTO getCustomerById(@PathVariable String id) {
+        CustomerDTO customerDTO = customerDAO.findById(id);
+        return customerDTO;
+    }
+
 
 
 }

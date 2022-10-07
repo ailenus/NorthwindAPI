@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @Service
-public class CustomerDAO {
+public class CustomerDAO implements DAO<CustomerDTO>{
 
     private CustomerRepository REPOSITORY;
 
@@ -27,6 +27,15 @@ public class CustomerDAO {
 
     }
 
+    @Override
+    public int insert(CustomerDTO item) {
+        return 0;
+    }
+
+    @Override
+    public boolean insertById(CustomerDTO item, int id) {
+        return false;
+    }
 
     public Optional<CustomerDTO> findById(int id) {
         Optional<CustomerDTO> result;
@@ -38,7 +47,7 @@ public class CustomerDAO {
         return result;
     }
 
-
+    @Override
     public List<CustomerDTO> findAll() {
         List<Customer> customers = REPOSITORY.findAll();
         List<CustomerDTO> results = new ArrayList<>();
@@ -48,7 +57,7 @@ public class CustomerDAO {
     }
 
 
-
+    @Override
     public int update(CustomerDTO customerDTO) {
         Optional<Customer> optional = REPOSITORY.findById(customerDTO.getId());
         Customer theCustomer = null;
@@ -82,5 +91,25 @@ public class CustomerDAO {
 
         REPOSITORY.save(theCustomer);
         return customerDTO.getId();
+    }
+
+    @Override
+    public boolean updateById(CustomerDTO item, int id) {
+        return false;
+    }
+
+    @Override
+    public int delete(CustomerDTO item) {
+        return 0;
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteAll() {
+        return false;
     }
 }

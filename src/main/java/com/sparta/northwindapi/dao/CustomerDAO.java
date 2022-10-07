@@ -20,7 +20,7 @@ public class CustomerDAO {
 
     }
 
-    public CustomerDTO findById(String id) {
+    public CustomerDTO findById(int id) {
         Optional<Customer> optionalCust = REPOSITORY.findById(id);
         if (optionalCust.isPresent()) {
             return new CustomerDTO(optionalCust.get().getId(),
@@ -35,7 +35,7 @@ public class CustomerDAO {
                     optionalCust.get().getPhone(),
                     optionalCust.get().getFax());
         }
-        return new CustomerDTO("-1",
+        return new CustomerDTO(-1,
                 null,
                 null,
                 null,
@@ -55,7 +55,7 @@ public class CustomerDAO {
         if (optional.isPresent())
             theCustomer = optional.get();
         else
-            return new CustomerDTO("-1",
+            return new CustomerDTO(-1,
                     null,
                     null,
                     null,

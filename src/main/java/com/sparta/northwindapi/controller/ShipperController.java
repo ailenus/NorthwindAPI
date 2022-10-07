@@ -54,7 +54,6 @@ public class ShipperController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ShipperDTO getById(@PathVariable int id) {
         Optional<ShipperDTO> result = dao.findById(id);
-        System.out.printf("%s result for id: %s\n", result.isPresent()?"got":"no", id);
         if (result.isPresent()) return result.get();
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }

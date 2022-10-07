@@ -1,9 +1,7 @@
 package com.sparta.northwindapi.controller;
 
-import com.sparta.northwindapi.dao.CustomerDAO;
+import com.sparta.northwindapi.dao.DAO;
 import com.sparta.northwindapi.dto.CustomerDTO;
-import com.sparta.northwindapi.repo.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,11 +13,11 @@ import java.util.Optional;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @Autowired
-    private CustomerDAO customerDAO;
+    private final DAO<CustomerDTO> dao;
 
-    @Autowired
-    private CustomerRepository custRepo;
+    public CustomerController(DAO<CustomerDTO> dao) {
+        this.dao = dao;
+    }
 
     @GetMapping({"","/"})
     public String basic() {
@@ -30,7 +28,6 @@ public class CustomerController {
                         <title>Northwind API</title>
                         <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/originals/03/ed/de/03edde789384ab169b248e0b37c96d47.jpg">
                         <style>
-                        .right { text-align:right; }
                         .center { text-align:center; }
                         </style>
                     </head>
@@ -38,26 +35,28 @@ public class CustomerController {
                         <h1 class="center">
                             Welcome to the Customer Sector of the API
                         </h1>
+                        <br>
+                        <h2>GET options:</h2>
+                        <ul>
+                            <li>To get a customer by ID -> <code>/customer/id/<i>customer_id</i></code></li>
+                            <li>To get all customers -> <code>/customer/all</code></li>
+                        </ul>
                     </body>
                 </html>
                 """;
     }
 
-    @PatchMapping("id/{id}/name/{companyName}")
-    public CustomerDTO updateCustomerById(@PathVariable int id, @PathVariable String companyName) {
-        CustomerDTO customerDTO = new CustomerDTO(id, companyName, null, null, null, null, null, null, null, null, null);
-        customerDTO = customerDAO.update(customerDTO);
-        return customerDTO;
-    }
-
     @GetMapping("/id/{id}")
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CustomerDTO getById(@PathVariable int id) {
-        Optional<CustomerDTO> result = customerDAO.findById(id);
-        System.out.printf("%s result for id: %s\n", result.isPresent()?"got":"no", id);
+        Optional<CustomerDTO> result = dao.findById(id);
         if (result.isPresent()) return result.get();
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<CustomerDTO> getAll() {
+        return dao.findAll();
+    }
 }

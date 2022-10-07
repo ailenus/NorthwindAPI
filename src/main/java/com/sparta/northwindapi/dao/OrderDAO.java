@@ -11,36 +11,13 @@ import java.util.Optional;
 
 @Component
 public class OrderDAO implements DAO<OrderDTO>{
+    private final OrderRepository repository;
+    private final Assembler assembler;
 
-    private OrderRepository orderRepository;
-    private Assembler assembler;
-
-
-    public OrderDAO(OrderRepository orderRepository,Assembler assembler){
-        this.orderRepository = orderRepository;
+    public OrderDAO(OrderRepository repository, Assembler assembler){
+        this.repository = repository;
         this.assembler = assembler;
     }
-
-
-//    @Override
-//    public int insert(DTO item) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public boolean insertById(DTO item, int id) {
-//        return false;
-//    }
-//
-//    @Override
-//    public int update(DTO item) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public boolean updateById(DTO item, int id) {
-//        return false;
-//    }
 
     @Override
     public int insert(OrderDTO item) {
@@ -50,6 +27,26 @@ public class OrderDAO implements DAO<OrderDTO>{
     @Override
     public boolean insertById(OrderDTO item, int id) {
         return false;
+    }
+
+    @Override
+    public Optional<OrderDTO> findById(int id) {
+        Optional<OrderDTO> result;
+        Optional<Order> order;
+        if ((order = repository.findById(id)).isPresent())
+            result = Optional.of(assembler.assembleOrder(order.get()));
+        else
+            result = Optional.empty();
+        return result;
+    }
+
+    @Override
+    public List<OrderDTO> findAll() {
+        List<Order> orders = repository.findAll();
+        List<OrderDTO> results = new ArrayList<>();
+        for (Order order: orders)
+            results.add(assembler.assembleOrder(order));
+        return results;
     }
 
     @Override
@@ -68,39 +65,12 @@ public class OrderDAO implements DAO<OrderDTO>{
     }
 
     @Override
-    public Optional<OrderDTO> findById(int id) {
-        Optional<Order> optional = orderRepository.findById(id);
-        Order order = null;
-        if(optional.isPresent()) {
-            order = optional.get();
-            return Optional.of(assembler.assembleOrder(optional.get()))
-                    ;
-        }
-
-        else
-            return Optional.empty();
-
-
-    }
-
-    @Override
-    public List<OrderDTO> findAll() {
-        List<Order> orders = orderRepository.findAll();
-        List<OrderDTO> results = new ArrayList<>();
-        for (Order order: orders)
-            results.add(assembler.assembleOrder(order));
-        return results;
-    }
-
-    @Override
     public boolean deleteById(int id) {
-
         return false;
     }
 
     @Override
     public boolean deleteAll() {
-
         return false;
     }
 }

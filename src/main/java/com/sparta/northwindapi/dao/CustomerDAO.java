@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 @Component
-public class CustomerDAO implements DAO<CustomerDTO>{
+public class CustomerDAO implements DAO<CustomerDTO> {
 
     private final CustomerRepository repository;
     private final Assembler assembler;

@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequestMapping("/shipper")
 public class ShipperController {
 
-    DAO<ShipperDTO> dao;
+    private final DAO<ShipperDTO> dao;
 
     public ShipperController(DAO<ShipperDTO> dao) {
         this.dao = dao;

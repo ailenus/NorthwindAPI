@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,39 +55,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getEmployeeById(@PathVariable int id){
-
-        Optional<EmployeeDTO> optional = DAO.findById(id);
-        ResponseEntity<String> result;
-
-        if (optional.isPresent()){
-            EmployeeDTO dto = optional.get();
-            try {
-                result = new ResponseEntity<>(objectMapper.writeValueAsString(dto), httpHeaders, HttpStatus.OK);
-            } catch (Exception e){
-                throw new RuntimeException(e);
-            }
-        } else {
-            result = new ResponseEntity<>("{\"message\": \"Employee not found\"}",
-                    httpHeaders, HttpStatus.OK);
-        }
-        return result;
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public EmployeeDTO getById(@PathVariable int id) {
+        Optional<EmployeeDTO> result = DAO.findById(id);
+        System.out.printf("%s result for id: %s\n", result.isPresent()?"got":"no", id);
+        if (result.isPresent()) return result.get();
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<String> getAllEmployees() {
-
-        List<EmployeeDTO> list = DAO.findAll();
-        List<String> result = new ArrayList<>();
-        list.stream().forEach(employee -> {
-            try {
-                result.add(objectMapper.writeValueAsString(employee));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        return new ResponseEntity<>(result.toString(), httpHeaders, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<EmployeeDTO> getAll() {
+        return DAO.findAll();
     }
 
     @PatchMapping("{id}/{firstName}")

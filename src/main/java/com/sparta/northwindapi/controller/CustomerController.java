@@ -2,10 +2,14 @@ package com.sparta.northwindapi.controller;
 
 import com.sparta.northwindapi.dao.CustomerDAO;
 import com.sparta.northwindapi.dto.CustomerDTO;
+import com.sparta.northwindapi.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -13,6 +17,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerDAO customerDAO;
+
+    @Autowired
+    private CustomerRepository custRepo;
 
     @GetMapping({"","/"})
     public String basic() {
@@ -44,11 +51,13 @@ public class CustomerController {
     }
 
     @GetMapping("/id/{id}")
-    public CustomerDTO getCustomerById(@PathVariable int id) {
-        CustomerDTO customerDTO = customerDAO.findById(id);
-        return customerDTO;
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CustomerDTO getById(@PathVariable int id) {
+        Optional<CustomerDTO> result = customerDAO.findById(id);
+        System.out.printf("%s result for id: %s\n", result.isPresent()?"got":"no", id);
+        if (result.isPresent()) return result.get();
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
-
 
 
 }

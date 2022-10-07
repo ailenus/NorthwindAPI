@@ -6,47 +6,46 @@ import com.sparta.northwindapi.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
 @Service
 public class CustomerDAO {
 
-    @Autowired
     private CustomerRepository REPOSITORY;
 
+    private final Assembler assembler;
 
-    public CustomerDAO() {
+
+    public CustomerDAO(CustomerRepository custRepo, Assembler assembler) {
+        this.assembler = assembler;
+        this.REPOSITORY = custRepo;
 
     }
 
-    public CustomerDTO findById(int id) {
-        Optional<Customer> optionalCust = REPOSITORY.findById(id);
-        if (optionalCust.isPresent()) {
-            return new CustomerDTO(optionalCust.get().getId(),
-                    optionalCust.get().getCompanyName(),
-                    optionalCust.get().getContactName(),
-                    optionalCust.get().getContactTitle(),
-                    optionalCust.get().getAddress(),
-                    optionalCust.get().getCity(),
-                    optionalCust.get().getRegion(),
-                    optionalCust.get().getPostalCode(),
-                    optionalCust.get().getCountry(),
-                    optionalCust.get().getPhone(),
-                    optionalCust.get().getFax());
-        }
-        return new CustomerDTO(-1,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+
+    public Optional<CustomerDTO> findById(int id) {
+        Optional<CustomerDTO> result;
+        Optional<Customer> customer;
+        if ((customer = REPOSITORY.findById(id)).isPresent())
+            result = Optional.of(assembler.assembleCustomer(customer.get()));
+        else
+            result = Optional.empty();
+        return result;
     }
+
+
+    public List<CustomerDTO> findAll() {
+        List<Customer> customers = REPOSITORY.findAll();
+        List<CustomerDTO> results = new ArrayList<>();
+        for (Customer customer: customers)
+            results.add(assembler.assembleCustomer(customer));
+        return results;
+    }
+
+
 
 
     public CustomerDTO update(CustomerDTO customerDTO) {

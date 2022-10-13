@@ -21,12 +21,23 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
 
     @Override
     public int insert(TerritoryDTO item) {
-        return 0;
+        if (repository.existsById(item.getId()))
+            item.setId(repository.getMaxId() + 1);
+        try {
+            repository.save(assembler.dismantleTerritory(item));
+            return item.getId();
+        } catch (Exception e) { return -1; }
     }
 
     @Override
     public boolean insertById(TerritoryDTO item, int id) {
-        return false;
+        if (repository.existsById(id))
+            return false;
+        item.setId(id);
+        try {
+            repository.save(assembler.dismantleTerritory(item));
+            return true;
+        } catch (Exception e) { return false; }
     }
 
     @Override

@@ -82,4 +82,27 @@ class Assembler {
                 territory.getTerritoryDescription()
         );
     }
+
+    Customer dismantleCustomer(CustomerDTO customerDTO) {
+        return null;
+    }
+
+    Employee dismantleEmployee(EmployeeDTO employee) {
+        return null;
+    }
+
+    Order dismantleOrder(OrderDTO order) {
+        return null;
+    }
+
+    Shipper dismantleShipper(ShipperDTO shipper) {
+        return null;
+    }
+
+    Territory dismantleTerritory(TerritoryDTO territory) {
+        Territory returnVal = new Territory();
+        returnVal.setId(territory.getId());
+        returnVal.setTerritoryDescription(territory.getTerritoryDescription());
+        return returnVal;
+    }
 }

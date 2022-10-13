@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface DAO<T extends DTO> {
     /**
      * Inserts a new item to the database.
+     * If the {@code id} specified in the item is already taken, <br>
+     * the item will be inserted at a different {@code id}.
      * @param item the item to be inserted
      * @return the {@code id} of the inserted item, if added successfully<br>
      * {@code -1}, if not
@@ -21,6 +23,8 @@ public interface DAO<T extends DTO> {
 
     /**
      * Inserts a new item into the database with a specified {@code id}.
+     * If the {@code id} specified in the item is already taken, <br>
+     * then the item will not be inserted.
      * @param item the item to be inserted
      * @param id the {@code id} of the item
      * @return {@code true} if inserted<br>

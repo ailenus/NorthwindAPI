@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,19 @@ public class TerritoryController {
     public String getAll(Model model) {
         model.addAttribute("territories", dao.findAll());
         return "territory/territory-all.html";
+    }
+
+    @RequestMapping(value="/add", method={RequestMethod.GET, RequestMethod.POST})
+    public String add(@ModelAttribute("inTerritory") TerritoryDTO territory, HttpServletRequest request) {
+        String method = request.getMethod();
+
+        if ("GET".equals(method)) return "territory/territory-add.html";
+        if (!"POST".equals(method)) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        int id = dao.insert(territory);
+        if (id==-1) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        return String.format("redirect:/territory/id/%s", id);
     }
 
 }

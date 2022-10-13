@@ -15,6 +15,9 @@ public class Territory {
     @Column(name = "TerritoryDescription", nullable = false, length = 50)
     private String territoryDescription;
 
+    @Column(name = "RegionID", nullable = false)
+    private Integer regionId = 1;
+
     public Integer getId() {
         return id;
     }

@@ -24,7 +24,7 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
         if (repository.existsById(item.getId()))
             item.setId(repository.getMaxId() + 1);
         try {
-            repository.save(assembler.dismantleTerritory(item));
+            repository.saveAndFlush(assembler.dismantleTerritory(item));
             return item.getId();
         } catch (Exception e) { return -1; }
     }
@@ -35,7 +35,7 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
             return false;
         item.setId(id);
         try {
-            repository.save(assembler.dismantleTerritory(item));
+            repository.saveAndFlush(assembler.dismantleTerritory(item));
             return true;
         } catch (Exception e) { return false; }
     }
@@ -55,6 +55,7 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
     public List<TerritoryDTO> findAll() {
         List<Territory> territories = repository.findAll();
         List<TerritoryDTO> results = new ArrayList<>();
+        territories.forEach(assembler::assembleTerritory);
         for (Territory territory: territories)
             results.add(assembler.assembleTerritory(territory));
         return results;
@@ -62,12 +63,18 @@ public class TerritoryDAO implements DAO<TerritoryDTO> {
 
     @Override
     public int update(TerritoryDTO item) {
-        return 0;
+        if (!repository.existsById(item.getId()))
+            return -1;
+        try {
+            repository.saveAndFlush(assembler.dismantleTerritory(item));
+            return item.getId();
+        } catch (Exception e) { return -1; }
     }
 
     @Override
     public boolean updateById(TerritoryDTO item, int id) {
-        return false;
+        item.setId(id);
+        return update(item)!=-1;
     }
 
     @Override

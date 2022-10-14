@@ -46,12 +46,19 @@ public class TerritoryController {
 
     @RequestMapping(value="/add", method={RequestMethod.GET, RequestMethod.POST})
     public String add(@ModelAttribute("inTerritory") TerritoryDTO territory, HttpServletRequest request) {
-        String method = request.getMethod();
-
-        if ("GET".equals(method)) return "territory/territory-add.html";
-        if (!"POST".equals(method)) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if ("GET".equals(request.getMethod())) return "territory/territory-add.html";
 
         int id = dao.insert(territory);
+        if (id==-1) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        return String.format("redirect:/territory/id/%s", id);
+    }
+
+    @RequestMapping(value="/update", method={RequestMethod.GET, RequestMethod.POST})
+    public String update(@ModelAttribute("inTerritory") TerritoryDTO territory, HttpServletRequest request) {
+        if ("GET".equals(request.getMethod())) return "territory/territory-update.html";
+
+        int id = dao.update(territory);
         if (id==-1) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         return String.format("redirect:/territory/id/%s", id);

@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Linux (x86_64)
+CREATE DATABASE  IF NOT EXISTS `northwind` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `northwind`;
+-- MySQL dump 10.13  Distrib 8.0.31, for Linux (x86_64)
 --
 -- Host: localhost    Database: northwind
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,8 +20,7 @@
 --
 -- Table structure for table `categories`
 --
-CREATE SCHEMA `northwind`;
-USE `northwind`;
+
 DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -103,7 +104,7 @@ CREATE TABLE `employee_territories` (
 
 LOCK TABLES `employee_territories` WRITE;
 /*!40000 ALTER TABLE `employee_territories` DISABLE KEYS */;
-INSERT INTO `employee_territories` VALUES (2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(5,7),(9,8),(9,9),(1,10),(5,11),(5,12),(5,13),(5,14),(5,15),(5,16),(8,17),(1,18),(4,19),(4,20),(4,21),(3,23),(3,24),(3,25),(3,26),(2,27),(8,28),(8,29),(9,30),(9,31),(9,32),(8,33),(9,34),(9,35),(7,36),(7,37),(7,41),(7,42),(6,43),(6,44),(7,45),(7,46),(7,47),(7,48),(7,49),(7,50),(6,51),(6,52),(6,53);
+INSERT INTO `employee_territories` VALUES (2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(5,7),(9,8),(9,9),(1,10),(5,11),(5,12),(5,13),(5,15),(5,16),(8,17),(1,18),(4,19),(4,20),(4,21),(3,23),(3,24),(3,25),(3,26),(2,27),(8,28),(8,29),(9,30),(9,31),(9,32),(8,33),(9,34),(9,35),(7,36),(7,37),(7,41),(7,42),(6,43),(6,44),(7,45),(7,46),(7,47),(7,48),(7,49),(7,50),(6,51),(6,52),(6,53);
 /*!40000 ALTER TABLE `employee_territories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +285,7 @@ CREATE TABLE `regions` (
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Eastern                                           '),(2,'Westerns                                          '),(3,'Northern                                          '),(4,'Southern                                          ');
+INSERT INTO `regions` VALUES (1,'Eastern'),(2,'Westerns'),(3,'Northern'),(4,'Southern');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +373,7 @@ CREATE TABLE `territories` (
 
 LOCK TABLES `territories` WRITE;
 /*!40000 ALTER TABLE `territories` DISABLE KEYS */;
-INSERT INTO `territories` VALUES (1,'Westboro                                          ',1),(2,'Bedford                                           ',1),(3,'Georgetow                                         ',1),(4,'Boston                                            ',1),(5,'Cambridge                                         ',1),(6,'Braintree                                         ',1),(7,'Providence                                        ',1),(8,'Hollis                                            ',3),(9,'Portsmouth                                        ',3),(10,'Wilton                                            ',1),(11,'Morristown                                        ',1),(12,'Edison                                            ',1),(13,'New York                                          ',1),(14,'New York                                          ',1),(15,'Mellvile                                          ',1),(16,'Fairport                                          ',1),(17,'Philadelphia                                      ',3),(18,'Neward                                            ',1),(19,'Rockville                                         ',1),(20,'Greensboro                                        ',1),(21,'Cary                                              ',1),(22,'Columbia                                          ',4),(23,'Atlanta                                           ',4),(24,'Savannah                                          ',4),(25,'Orlando                                           ',4),(26,'Tampa                                             ',4),(27,'Louisville                                        ',1),(28,'Beachwood                                         ',3),(29,'Findlay                                           ',3),(30,'Southfield                                        ',3),(31,'Troy                                              ',3),(32,'Bloomfield Hills                                  ',3),(33,'Racine                                            ',3),(34,'Roseville                                         ',3),(35,'Minneapolis                                       ',3),(36,'Hoffman Estates                                   ',2),(37,'Chicago                                           ',2),(38,'Bentonville                                       ',4),(39,'Dallas                                            ',4),(40,'Austin                                            ',4),(41,'Denver                                            ',2),(42,'Colorado Springs                                  ',2),(43,'Phoenix                                           ',2),(44,'Scottsdale                                        ',2),(45,'Santa Monica                                      ',2),(46,'Menlo Park                                        ',2),(47,'San Francisco                                     ',2),(48,'Campbell                                          ',2),(49,'Santa Clara                                       ',2),(50,'Santa Cruz                                        ',2),(51,'Bellevue                                          ',2),(52,'Redmond                                           ',2),(53,'Seattle                                           ',2);
+INSERT INTO `territories` VALUES (1,'Westboro',1),(2,'Bedford',1),(3,'Georgetow',1),(4,'Boston',1),(5,'Cambridge',1),(6,'Braintree',1),(7,'Providence',1),(8,'Hollis',3),(9,'Portsmouth',3),(10,'Wilton',1),(11,'Morristown',1),(12,'Edison',1),(13,'New York',1),(15,'Mellvile',1),(16,'Fairport',1),(17,'Philadelphia',3),(18,'Neward',1),(19,'Rockville',1),(20,'Greensboro',1),(21,'Cary',1),(22,'Columbia',4),(23,'Atlanta',4),(24,'Savannah',4),(25,'Orlando',4),(26,'Tampa',4),(27,'Louisville',1),(28,'Beachwood',3),(29,'Findlay',3),(30,'Southfield',3),(31,'Troy',3),(32,'Bloomfield Hills',3),(33,'Racine',3),(34,'Roseville',3),(35,'Minneapolis',3),(36,'Hoffman Estates',2),(37,'Chicago',2),(38,'Bentonville',4),(39,'Dallas',4),(40,'Austin',4),(41,'Denver',2),(42,'Colorado Springs',2),(43,'Phoenix',2),(44,'Scottsdale',2),(45,'Santa Monica',2),(46,'Menlo Park',2),(47,'San Francisco',2),(48,'Campbell',2),(49,'Santa Clara',2),(50,'Santa Cruz',2),(51,'Bellevue',2),(52,'Redmond',2),(53,'Seattle',2);
 /*!40000 ALTER TABLE `territories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -385,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-07 12:09:24
+-- Dump completed on 2022-10-14 14:09:18
